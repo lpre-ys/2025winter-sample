@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Select</title>
+  <link rel="stylesheet" href="checker/style.css">
+  <style type="text/css">
+    .outer {
+      display: grid;
+      width: 100%;
+      grid-template-columns: 1fr 198px 12px 0;
+      background-color: #333;
+    }
+
+    #container {
+      display: grid;
+      grid-template-rows: 20px 1fr 80px;
+    }
+
+    .list {
+      background-color: green;
+      display: grid;
+      height: 140px;
+      grid-template-columns: 100%;
+      grid-auto-rows: 20px;
+      overflow-y: hidden;
+    }
+
+    .scroll {
+      border: 1px solid #000;
+      border-left: none;
+      background-color: #ACA;
+      display: grid;
+      grid-template-rows: 12px 40px 1fr 12px;
+    }
+
+    .scroll-bar {
+      background-color: blue;
+    }
+
+    .arrow {
+      background-color: darkgreen;
+    }
+
+    .item {
+      background-color: #AAC;
+      display: flex;
+      flex-direction: row;
+      border: 1px solid darkblue;
+      font-size: 12px;
+      font-family: "ＭＳ ゴシック";
+    }
+
+    .icon {
+      background-color: #CAA;
+      border-right: 1px solid #000;
+      flex-basis: 42px;
+    }
+
+    .label {
+      flex-grow: 1;
+      padding-top: 5px;
+    }
+
+    .other {
+      background-color: #ACC;
+      border-left: 1px solid #000;
+      flex-basis: 32px;
+      padding-top: 5px;
+    }
+
+    .item:not(:last-child) {
+      border-bottom: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div id="main-root">
+      <div id="container">
+        <div class="header"></div>
+        <div class="outer">
+          <div class="left"></div>
+          <div class="list">
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <!-- <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div>
+            <div class="item">
+              <div class="icon"></div>
+              <div class="label">１２３４５６７８９０</div>
+              <div class="other">12345</div>
+            </div> -->
+          </div>
+          <div class="scroll">
+            <div class="arrow"></div>
+            <div class="scroll-bar"></div>
+            <div class="whitespace"></div>
+            <div class="arrow"></div>
+          </div>
+          <div class="right"></div>
+        </div>
+        <div class="msg"></div>
+      </div>
+    </div>
+    <div id="point-root"></div>
+  </div>
+  <script src="http://unpkg.com/mithril/mithril.js"></script>
+  <script src="./checker/point.js"></script>
+</body>
+
+</html>

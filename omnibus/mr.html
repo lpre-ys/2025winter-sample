@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>MonitorRoom</title>
+  <link rel="stylesheet" href="checker/style.css">
+  <style type="text/css">
+    @font-face {
+      font-family: "PixelMplus12";
+      src: url("fonts/PixelMplus12-Regular.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    body {
+      background: #AAA;
+    }
+
+    #container {
+      box-sizing: border-box;
+      font-size: 12px;
+      font-family: 'PixelMplus12';
+      image-rendering: pixelated;
+      display: flex;
+      flex-direction: column;
+      background: #0F0;
+      width: 320px;
+      height: 240px;
+    }
+
+    .header {
+      height: 40px;
+      width: 100%;
+      background-color: #AAF;
+    }
+
+    .main {
+      display: flex;
+      width: 100%;
+      height: 200px;
+    }
+
+    .left {
+      width: 88px;
+      height: 100%;
+      align-items: stretch;
+      background-color: #FAA;
+    }
+
+    .right {
+      width: 232px;
+      height: 200px;
+      background-color: #FAF;
+      display: grid;
+      grid-template-rows: 36px 36px 36px 36px;
+      grid-template-columns: 48px 48px 48px 48px;
+      gap: 8px;
+      padding: 8px;
+    }
+
+    .card {
+      background-color: #DDD;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div id="main-root">
+      <div id="container">
+        <div class="header">Header.</div>
+        <div class="main">
+          <div class="left">left</div>
+          <div class="right">
+            <div class="card">1</div>
+            <div class="card">2</div>
+            <div class="card">3</div>
+            <div class="card">4</div>
+            <div class="card">5</div>
+            <div class="card">6</div>
+            <div class="card">7</div>
+            <div class="card">8</div>
+            <div class="card">9</div>
+            <div class="card">10</div>
+            <div class="card">11</div>
+            <div class="card">12</div>
+            <div class="card">13</div>
+            <div class="card">14</div>
+            <div class="card">15</div>
+            <div class="card">16</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="point-root"></div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/mithril/mithril.min.js"></script>
+<script src="./checker/point.js"></script>
+
+</html>

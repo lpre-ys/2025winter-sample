@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>BaseMenu</title>
+  <link rel="stylesheet" href="checker/style.css">
+  <style type="text/css">
+    @font-face {
+      font-family: "PixelMplus12";
+      src: url("fonts/PixelMplus12-Regular.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "PixelMplus10";
+      src: url("fonts/PixelMplus10-Regular.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    body {
+      background: #AAA;
+    }
+
+    #container {
+      box-sizing: border-box;
+      font-size: 12px;
+      font-family: 'PixelMplus12';
+      image-rendering: pixelated;
+      display: flex;
+      flex-direction: column;
+      background: #0F0;
+    }
+
+    .main {
+      height: 160px;
+      width: 100%;
+      display: flex;
+    }
+
+    .list {
+      width: 80px;
+      height: 100%;
+      background: linear-gradient(#111, #444);
+      border: 1px solid #999;
+      border-bottom: none;
+    }
+
+    .list ul {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+    }
+
+    .list li.current::before {
+      content: url(./img/other/b-ui-cursor.png);
+      width: 9px;
+      display: inline-block;
+      text-align: center;
+      margin-left: -9px;
+    }
+
+    .list li {
+      height: 18px;
+      border-bottom: 1px solid #999;
+      color: #EEE;
+      text-shadow: 1px 1px 0px #111;
+      padding-left: 9px;
+      line-height: 18px;
+    }
+
+    .list li.header {
+      color: #FFF59D;
+      text-align: center;
+      padding: 0;
+    }
+
+    .list li.header span {
+      margin: 0 2px;
+    }
+
+    .list li .sub {
+      font-size: 10px;
+      font-family: 'PixelMplus10';
+    }
+
+    .open {
+      color: #AED581;
+    }
+
+    .closed {
+      color: #90A4AE;
+    }
+
+    #barLabelClosed {
+      display: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .new {
+      color: #80DEEA;
+    }
+
+    .img {
+      width: 240px;
+      height: 160px;
+    }
+
+    .msg {
+      padding: 7px;
+      height: 80px;
+      width: 100%;
+      line-height: 16px;
+      color: #EEE;
+      text-shadow: 1px 1px 0px #111;
+      background: linear-gradient(#111, #444);
+      border: 1px solid #999;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ui">
+    <button id="toggleUiButton">TOGGLE</button>
+  </div>
+  <div id="root">
+    <div id="main-root">
+      <div id="container">
+        <div class="main">
+          <div class="list">
+            <ul id="list-ul">
+              <li class="header"><span class="toggleUiTarget">*<span>MENU</span>*</span></li>
+              <li class="current toggleUiTarget">作戦室</li>
+              <li class="toggleUiTarget">記録保管庫</li>
+              <li class="toggleUiTarget">講義室 <span class="sub new">NEW</span></li>
+              <li class="toggleUiTarget">訓練所</li>
+              <li class="toggleUiTarget">モニターR.</li>
+              <li class="toggleUiTarget">BAR <span class="sub open" id="barLabelOpen">OPEN</span><span
+                  class="sub closed" id="barLabelClosed">CLOSED</span></li>
+            </ul>
+          </div>
+          <div class="img">
+            <img src="./img/other/base1.png" alt="" class="toggleUiTarget">
+          </div>
+        </div>
+        <div class="msg">
+          <div class="toggleUiTarget">
+            【拠点名】<br />
+            拠点の説明がここに入ります<br / />
+            入りますよ<br />
+            １２３４５６７８９０１２３４５６７８９０１２３４５
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="point-root"></div>
+  </div>
+  <script>
+    // 初期化
+    const MAX_LIST = 6;
+    let currentIndex = 1;
+    document.body.addEventListener('keyup', keyUp);
+    document.getElementById('toggleUiButton').addEventListener('click', toggleUi);
+
+    function keyUp(e) {
+      let isUpdate = false;
+      if (e.key == "ArrowDown") {
+        if (currentIndex < MAX_LIST) {
+          currentIndex++;
+        } else {
+          currentIndex = 1;
+        }
+        isUpdate = true;
+      }
+      if (e.key == "ArrowUp") {
+        if (currentIndex > 1) {
+          currentIndex--;
+        } else {
+          currentIndex = MAX_LIST;
+        }
+        isUpdate = true;
+      }
+      if (e.key == "Enter") {
+        if (currentIndex == MAX_LIST) {
+          const open = document.getElementById('barLabelOpen');
+          const closed = document.getElementById('barLabelClosed');
+          toggle(open);
+          toggle(closed);
+        }
+      }
+
+      if (isUpdate) {
+        const current = document.getElementsByClassName('current')[0];
+        const next = document.getElementById('list-ul').children[currentIndex];
+        current.classList.remove('current');
+        next.classList.add('current');
+      }
+    }
+    function toggle(elem) {
+      if (window.getComputedStyle(elem).display === 'inline') {
+        elem.style.display = 'none';
+        return;
+      }
+      elem.style.display = 'inline';
+    };
+    function toggleBlock(elem) {
+      if (window.getComputedStyle(elem).display === 'block') {
+        elem.style.display = 'none';
+        return;
+      }
+      elem.style.display = 'block';
+    };
+
+    function toggleUi() {
+      const toggleUiList = document.getElementsByClassName('toggleUiTarget');
+      for (let i = 0; i < toggleUiList.length; i++) {
+        toggleUiList[i].classList.toggle('hidden');
+      }
+    }
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mithril/mithril.min.js"></script>
+  <script src="./checker/point.js"></script>
+</body>
+
+</html>

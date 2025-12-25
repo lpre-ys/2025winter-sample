@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --hex-width: 32px;
+      --hex-height: 24px;
+    }
+
+    body {
+      -webkit-font-smoothing: none;
+      image-rendering: pixelated;
+      zoom: 2;
+    }
+
+    #container {
+      background-image: url(./bg.png);
+    }
+
+    #layer {
+      position: absolute;
+      width: 320px;
+      height: 240px;
+    }
+
+    #grid {
+      background-image: url(./hex.png);
+      width: 320px;
+      height: 240px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #cover {
+      background-image: url(./cover.png);
+      width: 320px;
+      height: 240px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0.3;
+    }
+
+    #main {
+      height: 144px;
+      width: 300px;
+      padding: 16px 0 0 44px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #message {
+      height: 80px;
+      width: 320px;
+      /* background-color: lightgreen; */
+    }
+
+    .hex::before {
+      background-color: lightgray;
+      width: calc(var(--hex-width) - 1px);
+      height: calc(var(--hex-height) - 1px);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      position: absolute;
+      content: '';
+      z-index: 0;
+      /* top: 1px;
+      left: 1px; */
+    }
+
+    .hex {
+      background-color: black;
+      width: var(--hex-width);
+      height: var(--hex-height);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      position: relative;
+      z-index: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .label {
+      z-index: 1;
+      position: relative;
+      font-size: 0.6rem;
+    }
+
+    input {
+      width: 3rem;
+    }
+
+    .start::before {
+      background-color: lightpink;
+    }
+
+    .end::before {
+      background-color: mediumseagreen;
+    }
+
+    .path::before {
+      background-color: steelblue;
+    }
+
+    .hidden {
+      background-color: transparent;
+    }
+
+    .hidden::before {
+      background-color: transparent;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      width: 320px;
+      height: 240px;
+      background-color: lightblue;
+    }
+
+    .row {
+      display: flex;
+      column-gap: calc(var(--hex-width) / 2);
+      width: 280px;
+    }
+
+    .row:nth-child(even) {
+      margin-left: calc(var(--hex-width) * 0.75);
+    }
+
+    .row:not(:first-child) {
+      margin-top: calc(var(--hex-height) / -2);
+    }
+
+    .wrapper {
+      position: relative;
+      width: 320px;
+      height: 160px;
+    }
+
+    .cursor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 14px;
+      height: 8px;
+      background-image: url(./cursor.png);
+    }
+
+    #view {
+      position: absolute;
+    }
+
+    .point {
+      position: absolute;
+      font-size: 6pt;
+      width: 3em;
+    }
+
+    .highlight {
+      width: calc(var(--hex-width));
+      height: calc(var(--hex-height));
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      position: absolute;
+      opacity: 0.5;
+    }
+
+    .barrier {
+      background-color: pink;
+    }
+
+    .zoc {
+      background-color: orange;
+    }
+
+    .start {
+      background-color: red;
+    }
+
+    .end {
+      background-color: green;
+    }
+
+    .path {
+      background-color: blue;
+    }
+
+    .chara {
+      background-image: url(./chara.png);
+      height: 32px;
+      width: 24px;
+      position: absolute;
+    }
+
+    label {
+      user-select: none;
+      cursor: pointer;
+    }
+  </style>
+  <title>プロトタイプ</title>
+</head>
+
+<body>
+  <div id="root">
+    <input type="checkbox" id="map-id" v-model="isShowMapId" />
+    <label for="map-id">show map id</label><br />
+    <label>Chara(MapId):<input type="number" id="chara-q" v-model="chara" /></label>
+    <label>Barrier(MapId):<input type="number" id="chara-q" v-model="barrier" /></label>
+    <div id="container">
+      <div class="wrapper">
+      </div>
+      <div id="layer">
+        <div id="grid"></div>
+        <div id="cover"></div>
+      </div>
+      <div id="message">
+        <span v-for="k in keyList">{{k}}&nbsp;</span>
+      </div>
+      <div id="view">
+        <div class="barrier highlight" :style="{
+                    top: getHighlightY(tilesQ[barrier], tilesR[barrier]) + 'px',
+                    left: getHighlightX(tilesQ[barrier], tilesR[barrier]) + 'px'
+            }"></div>
+        <div class="zoc highlight" v-for="id in zoc" :style="{
+                          top: getHighlightY(tilesQ[id], tilesR[id]) + 'px',
+                          left: getHighlightX(tilesQ[id], tilesR[id]) + 'px'
+                  }"></div>
+        <div class="path highlight" v-for="id in pathList" :style="{
+                          top: getHighlightY(tilesQ[id], tilesR[id]) + 'px',
+                          left: getHighlightX(tilesQ[id], tilesR[id]) + 'px'
+                  }"></div>
+        <div class="start highlight" :style="{
+                          top: getHighlightY(tilesQ[start], tilesR[start]) + 'px',
+                          left: getHighlightX(tilesQ[start], tilesR[start]) + 'px'
+                  }"></div>
+        <div class="end highlight" v-if="end > -1" :style="{
+                          top: getHighlightY(tilesQ[end], tilesR[end]) + 'px',
+                          left: getHighlightX(tilesQ[end], tilesR[end]) + 'px'
+                  }"></div>
+        <div class="point" v-for="(q, id) in tilesQ" :style="{
+              top: getY(q, tilesR[id]) + 'px',
+              left: getX(q, tilesR[id]) + 'px'
+            }"><span v-if="isShowMapId">{{id}}</span><span v-else>{{q}}, {{tilesR[id]}}</span></div>
+        <div class="chara" :style="{
+        top: getY(tilesQ[chara], tilesR[chara]) - 18 + 'px',
+        left: getX(tilesQ[chara], tilesR[chara]) - 4 + 'px',
+      }"></div>
+        <div class="cursor" :style="{
+              top: getCursorY(tilesQ[cursor], tilesR[cursor]) + 'px',
+              left: getCursorX(tilesQ[cursor], tilesR[cursor]) + 'px',
+      }"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        // 描画関連
+        const row = 9;
+        const column = 5;
+        const keyViewTime = 1000;
+        const keyList = ref([]);
+        const cursor = ref(12);
+        const start = ref(19);
+        const end = ref(32);
+        const chara = ref(13);
+        const barrier = ref(9);
+        const isShowMapId = ref(false);
+
+        const HEX_W = 32;
+        const HEX_H = 24;
+        const POINT_X = 24;
+        const POINT_Y = 24;
+        const LEFT = 56;
+        const TOP = 44;
+
+        const DIRECTIONS_Q = [0, 1, 1, 0, -1, -1];
+        const DIRECTIONS_R = [-1, -1, 0, 1, 1, 0];
+
+        const UP = 0;
+        const RIGHT_UP = 1;
+        const RIGHT_DOWN = 2;
+        const DOWN = 3;
+        const LEFT_DOWN = 4;
+        const LEFT_UP = 5;
+        const MIN_Q = 0;
+        const MAX_Q = 8;
+        const MIN_R = -3;
+        const MAX_R = 3;
+
+        let isFlip = false;
+
+        const zoc = computed(() => {
+          return getNeighbors(tilesQ[barrier.value], tilesR[barrier.value]);
+        });
+        const tilesQ = [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8];
+        const tilesR = [1, 2, 3, 0, 1, 2, 3, -1, 0, 1, 2, 3, -1, 0, 1, 2, -2, -1, 0, 1, 2, -2, -1, 0, 1, -3, -2, -1, 0, 1, -3, -2, -1, 0, -3, -2, -1];
+        const tileIdMap = [
+          [-1, -1, -1, -1, 0, 1, 2],
+          [-1, -1, -1, 3, 4, 5, 6],
+          [-1, -1, 7, 8, 9, 10, 11],
+          [-1, -1, 12, 13, 14, 15, -1],
+          [-1, 16, 17, 18, 19, 20, -1],
+          [-1, 21, 22, 23, 24, -1, -1],
+          [25, 26, 27, 28, 29, -1, -1],
+          [30, 31, 32, 33, -1, -1, -1],
+          [34, 35, 36, -1, -1, -1, -1]
+        ];
+
+        const getTileId = (q, r) => {
+          const qOffset = q - MIN_Q;
+          const rOffset = r - MIN_R;
+          return tileIdMap[qOffset][rOffset];
+        }
+
+        const topTilesQ = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        const topTilesR = [1, 0, -1, -1, -2, -2, -3, -3, -3];
+
+        const bottomTilesQ = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        const bottomTilesR = [3, 3, 3, 2, 2, 1, 1, 0, -1];
+
+        const leftTilesQ = [0, 0, 0, 1, 1];
+        const leftTilesR = [1, 2, 3, 0, 3];
+
+        const rightTilesQ = [8, 8, 8, 7, 7];
+        const rightTilesR = [-3, -2, -1, -3, 0];
+
+        // 下端で移動方向を斜め上に固定するタイル
+        const bottomFrapTilesQ = [2, 4, 6];
+        const bottomFrapTilesR = [3, 2, 1];
+
+        const removeKey = () => {
+          keyList.value.pop();
+        }
+
+        const getX = (q, r) => {
+          // 横座標の計算で使うのはqだけ
+          return q * POINT_X + LEFT;
+        }
+
+        const getY = (q, r) => {
+          return r * POINT_Y + q * POINT_Y / 2 + TOP;
+        }
+
+        const getCursorY = (q, r) => {
+          if (tilesQ[chara.value] === q && tilesR[chara.value] === r) {
+            return getY(q, r) - 18;
+          }
+          return getY(q, r) - 8;
+        }
+        const getCursorX = (q, r) => {
+          return getX(q, r) + 1;
+        }
+
+        const getHighlightX = (q, r) => {
+          return getX(q, r) - 8;
+        }
+
+        const getHighlightY = (q, r) => {
+          return getY(q, r) - 5;
+        }
+
+        const isInside = (q, r) => {
+          for (let i = 0; i < tilesQ.length; i++) {
+            if (tilesQ[i] === q && tilesR[i] === r) {
+              return true;
+            }
+          }
+          return false;
+        }
+
+        const isWalkable = (q, r) => {
+          return tilesQ[barrier.value] === q && tilesR[barrier.value] === r ? false : isInside(q, r);
+        }
+
+        const getNeighbors = (q, r) => {
+          const list = [];
+          for (let i = 0; i < 6; i++) {
+            // barrierの6方向を計算
+            let nextQ = q;
+            let nextR = r;
+            nextQ += DIRECTIONS_Q[i];
+            nextR += DIRECTIONS_R[i];
+            // 移動可能ならセット
+            if (isWalkable(nextQ, nextR)) {
+              list.push(getTileId(nextQ, nextR));
+            }
+          }
+
+          return list;
+        };
+
+        const findIndexQR = (q, r, tilesQ, tilesR) => {
+          let index = -1;
+          for (let i = 0; i < tilesQ.length; i++) {
+            if (tilesQ[i] === q && tilesR[i] === r) {
+              index = i;
+              break;
+            }
+          }
+          return index;
+        }
+
+        const getPath = (startId, goalId) => {
+          if (startId === goalId) {
+            return [startId];
+          }
+          if (goalId < 0) {
+            return [startId];
+          }
+          const queue = [];
+          let head = 0;
+          const cameFrom = Array(tilesQ.length).fill(-999, 0);
+          cameFrom[startId] = -2;
+          queue.push(startId);
+          let currentId = null;
+          goalQ = tilesQ[goalId];
+          goalR = tilesR[goalId];
+          while (head < queue.length) {
+            // キューから取り出す
+            currentId = queue[head];
+            head++;
+            currentQ = tilesQ[currentId];
+            currentR = tilesR[currentId];
+            // チェック
+            if (currentQ === goalQ && currentR === goalR) {
+              break;
+            }
+            // 隣接マスを取る
+            // ランダム性を持たせたいので……
+            isDesc = Math.random() > 0.5;
+            const neighbors = getNeighbors(currentQ, currentR);
+            if (isDesc) {
+              neighbors.reverse();
+            }
+            for (const nextId of neighbors) {
+              if (cameFrom[nextId] < -2) {
+                cameFrom[nextId] = currentId;
+                queue.push(nextId);
+              }
+            }
+          }
+          // ゴールに到達していたら
+          if (cameFrom[goalId]) {
+            let path = [];
+            currentId = goalId;
+            while (currentId > -2) {
+              path.push(currentId);
+              currentId = cameFrom[currentId];
+            }
+            return path.reverse();
+          }
+        }
+
+        const pathList = computed(() => {
+          if (end.value < -1) {
+            return [];
+          }
+          return getPath(start.value, end.value);
+        })
+
+        const moveUp = () => {
+          // warp
+          let nextQ = tilesQ[cursor.value];
+          let nextR = tilesR[cursor.value];
+          const warpIndex = findIndexQR(nextQ, nextR, topTilesQ, topTilesR);
+          if (warpIndex >= 0) {
+            nextQ = bottomTilesQ[warpIndex];
+            nextR = bottomTilesR[warpIndex];
+          } else {
+            nextQ += DIRECTIONS_Q[UP];
+            nextR += DIRECTIONS_R[UP];
+          }
+          if (isWalkable(nextQ, nextR)) {
+            cursor.value = getTileId(nextQ, nextR);
+          }
+          isFlip = false;
+          for (let i = 0; i < bottomFrapTilesQ.length; i++) {
+            if (bottomFrapTilesQ[i] === tilesQ[cursor.value] && bottomFrapTilesR[i] === tilesR[cursor.value]) {
+              isFlip = true;
+              break;
+            }
+          }
+        }
+        const moveDown = () => {
+          // warp
+          let nextQ = tilesQ[cursor.value];
+          let nextR = tilesR[cursor.value];
+          const warpIndex = findIndexQR(nextQ, nextR, bottomTilesQ, bottomTilesR);
+          if (warpIndex >= 0) {
+            nextQ = topTilesQ[warpIndex];
+            nextR = topTilesR[warpIndex];
+          } else {
+            nextQ += DIRECTIONS_Q[DOWN];
+            nextR += DIRECTIONS_R[DOWN];
+          }
+          if (isWalkable(nextQ, nextR)) {
+            cursor.value = getTileId(nextQ, nextR);
+          }
+          isFlip = false;
+          for (let i = 0; i < bottomFrapTilesQ.length; i++) {
+            if (bottomFrapTilesQ[i] === tilesQ[cursor.value] && bottomFrapTilesR[i] === tilesR[cursor.value]) {
+              isFlip = true;
+              break;
+            }
+          }
+        }
+
+        const moveLeft = () => {
+          let nextQ = tilesQ[cursor.value];
+          let nextR = tilesR[cursor.value];
+          const warpIndex = findIndexQR(nextQ, nextR, leftTilesQ, leftTilesR);
+          if (warpIndex >= 0) {
+            nextQ = rightTilesQ[warpIndex];
+            nextR = rightTilesR[warpIndex];
+          } else {
+            // 奇数偶数で方向を変える
+            if ((nextQ + (isFlip ? 1 : 0)) % 2 === 0) {
+              // 偶数からの移動時は下
+              nextQ += DIRECTIONS_Q[LEFT_DOWN];
+              nextR += DIRECTIONS_R[LEFT_DOWN];
+            } else {
+              // 奇数からの移動時は上
+              nextQ += DIRECTIONS_Q[LEFT_UP];
+              nextR += DIRECTIONS_R[LEFT_UP];
+            }
+          }
+          if (isWalkable(nextQ, nextR)) {
+            cursor.value = getTileId(nextQ, nextR);
+          }
+        }
+
+        const moveRight = () => {
+          let nextQ = tilesQ[cursor.value];
+          let nextR = tilesR[cursor.value];
+          const warpIndex = findIndexQR(nextQ, nextR, rightTilesQ, rightTilesR);
+          if (warpIndex >= 0) {
+            nextQ = leftTilesQ[warpIndex];
+            nextR = leftTilesR[warpIndex];
+          } else {
+            // 奇数偶数で方向を変える
+            if ((nextQ + (isFlip ? 1 : 0)) % 2 === 0) {
+              // 偶数からの移動時は下
+              nextQ += DIRECTIONS_Q[RIGHT_DOWN];
+              nextR += DIRECTIONS_R[RIGHT_DOWN];
+            } else {
+              // 奇数からの移動時は上
+              nextQ += DIRECTIONS_Q[RIGHT_UP];
+              nextR += DIRECTIONS_R[RIGHT_UP];
+            }
+          }
+          if (isWalkable(nextQ, nextR)) {
+            cursor.value = getTileId(nextQ, nextR);
+          }
+        }
+
+        const enter = () => {
+          if (end.value > -1) {
+            // start指定
+            start.value = cursor.value;
+            end.value = -1;
+          } else {
+            // end指定
+            end.value = cursor.value;
+          }
+        }
+
+        const onKeyDown = (e) => {
+          const keyMap = {
+            ArrowUp: { func: moveUp, symbol: '↑' },
+            ArrowDown: { func: moveDown, symbol: '↓' },
+            ArrowLeft: { func: moveLeft, symbol: '←' },
+            ArrowRight: { func: moveRight, symbol: '→' },
+            Enter: { func: enter, symbol: 'Ent' }
+          };
+
+          const action = keyMap[e.key];
+          if (!action) {
+            return;
+          }
+
+          e.preventDefault();
+          action.func();
+          keyList.value.unshift(action.symbol);
+          setTimeout(removeKey, keyViewTime);
+        }
+
+        return {
+          row,
+          column,
+          onKeyDown,
+          keyList,
+          tilesQ,
+          tilesR,
+          cursor,
+          start,
+          end,
+          chara,
+          barrier,
+          getX,
+          getY,
+          getCursorX,
+          getCursorY,
+          zoc,
+          getHighlightX,
+          getHighlightY,
+          pathList,
+          isShowMapId
+        }
+      },
+      mounted() {
+        document.addEventListener('keydown', this.onKeyDown);
+      },
+      beforeUnmount() {
+        document.removeEventListener('keydown', this.onKeyDown);
+      }
+    }).mount('#root');
+
+
+
+
+    // const tiles = [];
+    // let { q, r } = origin;
+    // for (let j = 0; j < 9; j++) {
+    //   let next = { q, r };
+    //   if (j % 2 === 0) {
+    //     // 奇数行なら、次は右下
+    //     next.q += DIRECTIONS_Q[RIGHT_DOWN];
+    //     next.r += DIRECTIONS_R[RIGHT_DOWN];
+    //   } else {
+    //     // 偶数行なら、次は右上
+    //     next.q += DIRECTIONS_Q[RIGHT_UP];
+    //     next.r += DIRECTIONS_R[RIGHT_UP];
+    //   }
+
+    //   for (let i = 0; i < 5; i++) {
+    //     tiles.push({ q, r });
+    //     // 下に1個下げる
+    //     q += DIRECTIONS_Q[DOWN];
+    //     r += DIRECTIONS_R[DOWN];
+    //   }
+    //   q = next.q;
+    //   r = next.r;
+    // }
+
+  </script>
+</body>
+
+</html>

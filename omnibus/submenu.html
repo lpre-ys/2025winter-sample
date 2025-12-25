@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Point</title>
+  <!-- <link rel="stylesheet" href="normalize.css"> -->
+  <link rel="stylesheet" href="checker/style.css">
+  <style type="text/css">
+    @font-face {
+      font-family: "PixelMplus12";
+      src: url("fonts/PixelMplus12-Regular.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "PixelMplus10";
+      src: url("fonts/PixelMplus10-Regular.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-size: 12px;
+      font-family: 'PixelMplus12';
+      image-rendering: pixelated;
+    }
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .outer {
+      display: grid;
+      width: 320px;
+      height: 240px;
+      grid-template-columns: 1fr 198px;
+      background-color: #333;
+    }
+
+    .main {
+      display: grid;
+      /*background-color: #999;*/
+      /*border-left: 1px solid #111;*/
+      grid-template-rows: 20px 1fr;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 84px 20px 20px 20px 20px;
+      grid-column-gap: 2px;
+      border-bottom: 1px solid #BBB;
+      padding-left: 6px;
+    }
+
+    .skills {
+      display: grid;
+      grid-template-rows: 16px 16px 1fr;
+    }
+
+    .skills .tabs {
+      grid-template-columns: 32px 32px 32px 32px;
+    }
+
+    .skills .tab {
+      padding-left: 4px;
+    }
+
+    .inner {
+      display: grid;
+      padding: 6px;
+      grid-template-rows: 1fr 1fr;
+      background-color: #CCC;
+      border-left: 1px solid #BBB;
+      border-right: 1px solid #BBB;
+      border-bottom: 1px solid #BBB;
+    }
+
+    .tab {
+      border-left: 1px solid #111;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      border-top: 1px solid #111;
+      border-right: 1px solid #111;
+      position: relative;
+      background-color: #999;
+    }
+
+    .tab-label {
+      font-size: 10px;
+      font-family: 'PixelMplus10';
+      overflow: hidden;
+      white-space: nowrap;
+      position: absolute;
+      top: auto;
+      bottom: 0;
+      margin: auto;
+    }
+
+    .tab1 {
+      background-color: #CCC;
+      box-shadow: 0px 3px 0px 0px #C52009 inset;
+    }
+
+    .tab2 {
+      box-shadow: 0px 3px 0px 0px #3848C0 inset;
+    }
+
+    .tab3 {
+      box-shadow: 0px 3px 0px 0px #ffc832 inset;
+    }
+
+    .tab4 {
+      box-shadow: 0px 3px 0px 0px #57cd07 inset;
+    }
+
+    .tab5 {
+      box-shadow: 0px 3px 0px 0px #7d7d7d inset;
+    }
+
+    .active {
+      background-color: #CCC;
+      box-shadow: 0px 3px 0px 0px #C52009 inset;
+    }
+
+    .header {
+      margin: 0;
+      padding: 0;
+    }
+
+    .header::before {
+      content: '■';
+    }
+
+    .name {
+      display: none;
+      margin-bottom: 4px;
+    }
+
+    .params-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 55px;
+    }
+
+    .graph {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #000;
+    }
+
+    .text {
+      margin: 0;
+      padding: 0;
+      line-height: 14px;
+      margin-left: 12px;
+    }
+
+    .block {
+      margin-top: 3px;
+      margin-bottom: 0;
+    }
+
+    .skill-block {
+      border-left: 1px solid #BBB;
+      border-right: 1px solid #BBB;
+      border-bottom: 1px solid #BBB;
+      padding-left: 12px;
+      padding-right: 12px;
+      padding-top: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div id="main-root">
+      <div id="container">
+        <!-- start -->
+        <div class="outer">
+          <div class="left">
+          </div>
+          <div class="main">
+            <div class="tabs">
+              <div class="tab tab1">
+                <p class="tab-label">１２３４５６７８</p>
+              </div>
+              <div class="tab tab2">&nbsp;</div>
+              <div class="tab tab3">&nbsp;</div>
+              <div class="tab tab4">&nbsp;</div>
+              <div class="tab tab5">&nbsp;</div>
+            </div>
+            <div class="inner">
+              <div class="main-status">
+                <p class="name">テスト</p>
+                <p class="header">基礎ステータス</p>
+                <div class="text">
+                  <p class="block">
+                    HP: 100/200 (300) Ten: 100%
+                  </p>
+                  <p class="block">
+                  <div class="params-wrapper">
+                    <div class="params">
+                      Atk: &nbsp;50&nbsp; Def: &nbsp;40<br />
+                      Hit: 100&nbsp; Avo: &nbsp;20<br />
+                      Res: &nbsp;50
+                    </div>
+                    <div class="atk-div">
+                      <p>攻撃偏差</p>
+                      <div class="graph">&nbsp;</div>
+                    </div>
+
+                  </div>
+                  </p>
+                </div>
+              </div>
+              <div class="skills">
+                <p class="header">スキル</p>
+                <div class="tabs">
+                  <div class="tab active">
+                    <p class="tab-label">Main</p>
+                  </div>
+                  <div class="tab">
+                    <p class="tab-label">Sub</p>
+                  </div>
+                  <div class="tab">
+                    <p class="tab-label">Guard</p>
+                  </div>
+                  <div class="tab">
+                    <p class="tab-label">Psv</p>
+                  </div>
+                </div>
+                <div class="skill-block">
+                  <p class="skill">[1]１２３４５６７８</p>
+                  <p class="skill">[2]TEST2</p>
+                  <p class="skill">[3]TEST3</p>
+                  <p class="skill">[4]TEST4</p>
+                  <p class="skill">[?]TEST5</p>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="img-bottom">
+              test: 10<br />
+              test: 20<br />
+              test: 30
+            </div> -->
+          </div>
+        </div>
+        <!-- end -->
+      </div>
+    </div>
+    <div id="point-root"></div>
+  </div>
+  <script src="http://unpkg.com/mithril/mithril.js"></script>
+  <script src="./checker/point.js"></script>
+</body>
+
+</html>
