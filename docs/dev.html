@@ -286,10 +286,12 @@ ZOCの判定に使うのはもちろん、この後のBFSで滅茶苦茶使う�
 <p>メインコンテンツ！！一番楽しいところ。</p>
 <p>だが、ここまで来るとヘックスマップっぽい箇所は皆無となる。格子マップでも全く同じ方法で作れる。<br />
 ヘックスじゃなくて普通の格子マップSRPGとか作りたいならここだけでも見るといい。</p>
-<p>主に下記2点で使う。<br />
-1. プレイヤーキャラの移動力を考慮した移動範囲の算出<br />
-2. 敵キャラの移動経路の算出<br />
-2はCPUの行動ロジックの肝となる。いくつか調整項目もあり、最後まで弄る事が多い。<br />
+<p>主に下記2点で使う。</p>
+<ol type="1">
+<li>プレイヤーキャラの移動力を考慮した移動範囲の算出</li>
+<li>敵キャラの移動経路の算出</li>
+</ol>
+<p>2はCPUの行動ロジックの肝となる。いくつか調整項目もあり、最後まで弄る事が多い。<br />
 一方1は答えはほぼ決まっている。また、2の計算で1が必要になることもある。</p>
 <p>よって、1. 移動範囲の算出から先に実装するのをオススメする。</p>
 <h3 id="移動範囲の算出基本的なbfs-calcwalkrange">1. 移動範囲の算出（基本的なBFS）: calcWalkRange</h3>
@@ -349,14 +351,18 @@ ZOCの判定に使うのはもちろん、この後のBFSで滅茶苦茶使う�
 結果を入れる配列は<code>cameFrom[]</code>のみでよい。<br />
 <code>queue</code>の初期化等は移動範囲の算出と同等。<br />
 また、今回は目標のマスにたどり着いたら探索終了となるため、目標と表す<code>goal</code>も用意する。マップID、q, r それぞれあると良い。</p>
-<p>探索自体は基本的なBFSと同じである。<br />
-1. <code>queue</code>から1つpopし、<code>current</code>に入れる。<br />
-2. <code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える<br />
-* この時、<code>hasRoute</code>等の名前で「ゴールに到達した」フラグを立てておくと、後々の不具合チェックに役立つので立てておこう。<br />
-3. 探索が続くなら、<code>current</code>の周囲6マス<code>neighbors[]</code>を取得<br />
-4. <code>neighbors</code>を順番にチェック。未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。<br />
-5. <code>queue</code>が空じゃないなら、1に戻る。<br />
-ざっくりこんな感じ。<br />
+<p>探索自体は基本的なBFSと同じである。</p>
+<ol type="1">
+<li><code>queue</code>から1つpopし、<code>current</code>に入れる。</li>
+<li><code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える
+<ul>
+<li>この時、<code>hasRoute</code>等の名前で「ゴールに到達した」フラグを立てておくと、後々の不具合チェックに役立つので立てておこう。</li>
+</ul></li>
+<li>探索が続くなら、<code>current</code>の周囲6マス<code>neighbors[]</code>を取得</li>
+<li><code>neighbors</code>を順番にチェック。未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</li>
+<li><code>queue</code>が空じゃないなら、1に戻る。</li>
+</ol>
+<p>ざっくりこんな感じ。<br />
 到達・未到達の判定をどうする？などは、1. 移動範囲の算出のBFSを参照してほしい。</p>
 <p>さて、経路探索はCPUの移動ロジックに使う。<br />
 となれば、経路は予測可能じゃない方が望ましい。<br />
@@ -393,39 +399,53 @@ ZOCの判定に使うのはもちろん、この後のBFSで滅茶苦茶使う�
 最短歩数だけで経路を決めてしまうと、ZOCに突っ込んでしまい、「歩数的には最短だが、ターン数は大幅に遅くなってしまう」経路を選んでしまうケースがあるのだ。</p>
 <p>もちろん、阿呆な敵という演出であればこのままでも良いが、基本的には敵はある程度賢いはずなので、最短歩数ではなく最短ターン数での経路探索を行う必要がある。</p>
 <p>では、最短ターン数をどう実現するか。<br />
-最短歩数時の経路探索ループは下記であった。<br />
-1. <code>queue</code>から1つpopし、<code>current</code>に入れる。<br />
-2. <code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える<br />
-3. 探索が続くなら、<code>current</code>の周囲6マス<code>neighbors[]</code>を取得<br />
-4. <code>neighbors</code>を順番にチェック。未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。<br />
-5. <code>queue</code>が空じゃないなら、1に戻る。<br />
-ここの3～4で取得・チェック対象とする<code>neighbors[]</code>を、隣接6マスではなく、<code>current</code>から1ターンで到達できるタイル全て、とすればよい。</p>
+最短歩数時の経路探索ループは下記であった。</p>
+<ol type="1">
+<li><code>queue</code>から1つpopし、<code>current</code>に入れる。</li>
+<li><code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える</li>
+<li>探索が続くなら、<code>current</code>の周囲6マス<code>neighbors[]</code>を取得</li>
+<li><code>neighbors</code>を順番にチェック。未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</li>
+<li><code>queue</code>が空じゃないなら、1に戻る。</li>
+</ol>
+<p>ここの3～4で取得・チェック対象とする<code>neighbors[]</code>を、隣接6マスではなく、<code>current</code>から1ターンで到達できるタイル全て、とすればよい。</p>
 <p>具体的には、こう。<br />
-※移動力2の想定<br />
-1. <code>queue</code>から1つpopし、<code>current</code>に入れる。<br />
-2. <code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える<br />
-3. 探索が続くなら、<code>calcWalkRange(current)</code>にて、<code>current</code>からの移動可能範囲を計算する。<br />
-* 結果は<code>walkCameFrom[]</code>および<code>walkDists[]</code>を参照することとする。<br />
-4. <code>walkCameFrom[]</code>を順番にチェック（MAP全体のタイル数分回す）<br />
-* ※今チェックしているIDを<code>nextId</code>とする<br />
-1. <code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく<br />
-2. <code>walkDists[nextId]</code>が1～2の範囲（移動力の範囲内）かつ<br />
-3. 未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。<br />
-5. <code>queue</code>が空じゃないなら、1に戻る。</p>
+※移動力2の想定</p>
+<ol type="1">
+<li><code>queue</code>から1つpopし、<code>current</code>に入れる。</li>
+<li><code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える</li>
+<li>探索が続くなら、<code>calcWalkRange(current)</code>にて、<code>current</code>からの移動可能範囲を計算する。
+<ul>
+<li>結果は<code>walkCameFrom[]</code>および<code>walkDists[]</code>を参照することとする。</li>
+</ul></li>
+<li><code>walkCameFrom[]</code>を順番にチェック（MAP全体のタイル数分回す）
+<ul>
+<li>※今チェックしているIDを<code>nextId</code>とする</li>
+</ul>
+<ol type="1">
+<li><code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく</li>
+<li><code>walkDists[nextId]</code>が1～2の範囲（移動力の範囲内）かつ</li>
+<li>未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</li>
+</ol></li>
+<li><code>queue</code>が空じゃないなら、1に戻る。</li>
+</ol>
 <p>もちろんここでも、4番の順番にチェックする箇所で、乱数による昇順・降順の切り替えは行うこと。</p>
 <h5 id="あじつけ">あじつけ</h5>
 <p>ここまでくればわかるかもしれないが、3～4の探索範囲と探索時の優先順位を操作することによって、ある程度CPUの動きを操作することができる。<br />
 今回は、最終的に「同一ターン数ならより多く歩ける方」を選ぶ、というアルゴリズムとした。<br />
 これにより、ZOCをなるべく避けるような動きになっているはずである。</p>
 <p>コードとしては、4番の探索を下記に変えている。<br />
-まずは下記ループを回し、移動力2の経路のみ先に探索する。<br />
-1. <code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく<br />
-2. <code>walkDists[nextId]</code>が<code>2</code>かつ<br />
-3. 未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</p>
-<p>続いて、同様に回して移動力1の範囲を探索する。<br />
-1. <code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく<br />
-2. <code>walkDists[nextId]</code>が<code>1</code>かつ<br />
-3. 未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</p>
+まずは下記ループを回し、移動力2の経路のみ先に探索する。</p>
+<ol type="1">
+<li><code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく</li>
+<li><code>walkDists[nextId]</code>が<code>2</code>かつ</li>
+<li>未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</li>
+</ol>
+<p>続いて、同様に回して移動力1の範囲を探索する。</p>
+<ol type="1">
+<li><code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく</li>
+<li><code>walkDists[nextId]</code>が<code>1</code>かつ</li>
+<li>未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</li>
+</ol>
 <h4 id="経路復元その2-最短ターン数の経路復元">経路復元その2: 最短ターン数の経路復元</h4>
 <p><img src="./attachments/path2.gif" /><br />
 さて、最短ターン数の探索はこれで無事出来たのだが、このアルゴリズムで探索を回すと、これまで通り<code>cameFrom[]</code>を辿って経路を復元しようとすると、飛び石になってしまう。<br />
@@ -455,14 +475,22 @@ ZOCの判定に使うのはもちろん、この後のBFSで滅茶苦茶使う�
 よって、移動方向が上下左右のどちらに向いているか判定する必要がある。</p>
 <p>今回は1歩ずつの移動しかないため、移動先のタイルを見て「横方向の移動だったら～」みたいに分岐するのも悪くは無いが、例えば「飛行ユニットはタイルを横断して一気に動く」みたいなことをしたくなると大変面倒である。<br />
 よって、単純に「移動先と移動元の座標から、縦方向と横方向の移動量を取得。移動量を比較して向いている向きを判断する」という方針にした。</p>
-<p>具体的には下記。<br />
-1. x, yともに移動先-移動元を計算し、移動量dx, dyを取得する<br />
-2. dx, dyを絶対値に変換する(adx, ady)<br />
-* ツクールには<code>abs()</code>なんて便利な物は無いので、自前で実装する<br />
-3. 横方向の移動量の方が大きい場合（adx &gt; ady）、左右方向に向いていると判断<br />
-1. dxが正なら右、dxが負なら左向き<br />
-4. 縦方向の移動量の方が大きい場合（else）、上下方向に向いていると判断<br />
-1. dyが正なら下、dyが負なら上</p>
+<p>具体的には下記。</p>
+<ol type="1">
+<li>x, yともに移動先-移動元を計算し、移動量dx, dyを取得する</li>
+<li>dx, dyを絶対値に変換する(adx, ady)
+<ul>
+<li>ツクールには<code>abs()</code>なんて便利な物は無いので、自前で実装する</li>
+</ul></li>
+<li>横方向の移動量の方が大きい場合（adx &gt; ady）、左右方向に向いていると判断
+<ol type="1">
+<li>dxが正なら右、dxが負なら左向き</li>
+</ol></li>
+<li>縦方向の移動量の方が大きい場合（else）、上下方向に向いていると判断
+<ol type="1">
+<li>dyが正なら下、dyが負なら上</li>
+</ol></li>
+</ol>
 <h4 id="移動アニメーション時の移動量の考え方">移動アニメーション時の移動量の考え方</h4>
 <p>特定の座標から特定の座標に移動する場合、移動後の座標から移動前の座標を引いて、移動量を求め、それを移動に使うフレーム数で割れば、1フレームの移動量が算出できる。<br />
 XもYも同様なので、以後すべてX座標の話とするが……。</p>
