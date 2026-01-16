@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2025年紅白参加、後で書く開発日記</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        background-color: #2a211c;
+        color: #bdae9d;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+    div.sourceCode
+      { color: #bdae9d; background-color: #2a211c; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffff00; } /* Alert */
+    code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #44aa43; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #049b0a; } /* Char */
+    code span.cn { } /* Constant */
+    code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+    code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.dv { color: #44aa43; } /* DecVal */
+    code span.er { color: #ffff00; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #44aa43; } /* Float */
+    code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+    code span.op { } /* Operator */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #049b0a; } /* SpecialChar */
+    code span.ss { color: #049b0a; } /* SpecialString */
+    code span.st { color: #049b0a; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #049b0a; } /* VerbatimString */
+    code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="" />
+  <!-- head.html -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+</head>
+<body>
+<h1 id="年紅白参加後で書く開発日記">2025年紅白参加、後で書く開発日記</h1>
+<p><a href="../index.html">indexにもどる</a></p>
+<p>あまりにも突貫工事すぎて面白かったので、後に残すために日記を書くことにした。<br />
+日付は記憶半分、タイムスタンプやコミットログ半分で記載している。正確性は保証できないのでご注意ください。<br />
+もちろんゲームのネタバレがある。まだ触ってない人はこれを機に触ってから見てね。すぐ終わるから。</p>
+<p>当時の臨場感を残したいのと面倒なので、口語交じりのインターネットジャンクテキストである。そういうの苦手な人はなんか適当なAIにでも要約してもらえば良いんじゃないですかね。</p>
+<p>それにしても、よくマトモに提出できたなぁ……。</p>
+<h2 id="年秋頃">2025年秋頃</h2>
+<p>R-TYPE TACTICSリメイクこと、<a href="https://rtypetactics.com/ja/news/2025/update-20251017.html">R-TYPE COSMOSのプレミアムBOX特典が公開</a>。楽しみすぎて禿げ上がる。<br />
+当然予約した。<br />
+マジで最高のゲームなので皆も買おう。</p>
+<p>やっぱヘックスマップは良いよなぁ〜。<br />
+次の次（玉露の続き物 Vol.13）でシナリオ的にヘックスマップ使えそうだなー。作るかー。<br />
+っても、当分先だし、ロジックだけ調べとこう。</p>
+<p>と思い、ゲームにおけるヘックスマップの実装について資料を漁り理解を深める。<br />
+これが一番よかった。英語だけど。<br />
+<a href="https://www.redblobgames.com/grids/hexagons/">Hexagonal Grids from Red Blob Games</a></p>
+<p>思えばこれがフラグだった。</p>
+<h2 id="年12月8日">2025年12月8日</h2>
+いつもの更新をXでやりつつ、紅白の話題を横目で見る。<br />
+この時点で参加予定は全くなかったため、「みんな頑張れー」と呑気にしていた。<br />
+が、「そういえば秋ごろに久々にツール公開してたなぁ。紹介ksgくらい出すか？」と思い、その旨をポストし、シナリオを書き殴り始める。<br />
+当時のポスト<br />
+
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">
+あと、今年の紅白、出る予定は全く無かったんですが、magic pot GUI版の宣伝してもいいかなーと思ったので、何もかもが上手く行ったら宣伝ゲーくらいは出すかもしれません。
+</p>
+— lpre (<span class="citation" data-cites="lpre_ys">@lpre_ys</span>) <a href="https://twitter.com/lpre_ys/status/1997951148649861573?ref_src=twsrc%5Etfw">December 8, 2025</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">
+何か一つでも上手く行かなかったら虚無です。悲しいね。
+</p>
+— lpre (<span class="citation" data-cites="lpre_ys">@lpre_ys</span>) <a href="https://twitter.com/lpre_ys/status/1997951214236176653?ref_src=twsrc%5Etfw">December 8, 2025</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h2 id="年12月9日">2025年12月9日</h2>
+<p>misskey.ioにて（埋め込み非対応につきコピペ）</p>
+<blockquote>
+<p>最近凝ったコード書いてなくて凝ったコード書きたい欲が高まっているがそんな事をしている場合ではない<br />
+2025/12/9 21:14:44</p>
+</blockquote>
+<p>という事でこの時点ではまだ我慢していたらしい。</p>
+<p>余談だが、最近はmisskey.ioで楽しくやっている。<br />
+<a href="https://misskey.io/@lpre_ys">https://misskey.io/<span class="citation" data-cites="lpre_ys">@lpre_ys</span></a><br />
+X(Twitter)と違い、いわゆる日常ツイート（ノート）もカジュアルにやっているので、ご興味あればご覧ください。</p>
+<h2 id="年12月10日">2025年12月10日</h2>
+<p>misskey.ioにて</p>
+<blockquote>
+<p>変に我慢するよりやりたい事やっちまったほうが良いんじゃないの……？（現実逃避に全然どうでも良いコードが書きたい）<br />
+2025/12/10 11:19:50</p>
+</blockquote>
+<p>ということで、めでたく（？）この日、プロトタイプのFirst commitが行われる。<br />
+プロトタイプはHTML上で動くものとなっている。下記のものもカーソル移動が可能なので、ぜひ触って体感していただきたい。<br />
+ソースも読めるぞ！！！<br />
+<a href="../20251210.html">2025年12月10日のプロトタイプ</a></p>
+<p>プロトタイプを作るにあたって、Vue.jsとReactどっちを使う？という悩みが発生したのだが、1ファイルのHTMLで動作させるなら、Vueの方が圧倒的に楽、という結論がでたため、Vueで書くことにする。</p>
+<p>この段階で、カーソル移動くらいは普通に出来るようになっていた模様。</p>
+<p>なお、自分のゲームプロジェクトには、必ず<code>memo.md</code>という、実装におけるメモをまとめたファイルを用意しているのだが<br />
+この時点での<code>memo.md</code>の中身はコレである。2行だけ！！！</p>
+<pre><code>なんかHEXマップでミニゲーム作りたいなの会
+============</code></pre>
+<p>ふざけてんのか？<br />
+遊びなんだからふざけてていいんだよ！！！</p>
+<h2 id="年12月12日">2025年12月12日</h2>
+<p>初期時点では、XY座標系で各タイルを扱っていた。偶数段だけ半分ずらして描画するタイプのヤツ。<br />
+が、この方式だと、ゲームっぽいことをやろうとすると面倒だという事が発覚。<br />
+真面目にaxial座標（円筒座標系）で組み直すことを決意。<br />
+ここまでのコードはVer1として取っておいて、新しくプロトタイプを作り直すこととした。</p>
+<h3 id="補足-axial座標とは">補足: axial座標とは</h3>
+<p>適当な場所を「原点」とし、そこから3方向（上下、右上左下、左上右下）の軸をq, r, sと取る。<br />
+sはqとrから計算して判定ができるので省略。q, rで1タイルを表す方式。<br />
+図とかで見たい人はここの「Axial coordinates」参照。<br />
+<a href="https://www.redblobgames.com/grids/hexagons/#diagram-grid-axial">https://www.redblobgames.com/grids/hexagons/#diagram-grid-axial</a></p>
+<p>さて、組み直す直前、雑座標で組んでいた最後のプロトタイプがこちら。<br />
+<a href="../20251212.html">2025年12月12日のプロトタイプ</a><br />
+なんとかXY座標で出来ないかめっちゃコネコネしていた形跡がある。結局捨てたけど。</p>
+<p>axial座標でやることが決まったのと、別にヘックスタイルの描画はツクール側じゃやらない（画像1枚貼って終わり）だしなぁ……<br />
+ということで、この辺りでヘックスマップ関連の画像素材を作る。<br />
+プロトタイプVer2は画像による描画に切り替える。</p>
+<p>なお、ヘックスグリッドだが</p>
+<ul>
+<li>プロトタイプVer.1をスクショ撮る</li>
+<li>下書きにしてクリスタでドットを打つ</li>
+</ul>
+<p>という、割とかなり雑な作り方で作成されている。</p>
+<h3 id="補足-なんでhtmlでプロトタイプ作ってるかの理由その１">補足: なんでHTMLでプロトタイプ作ってるかの理由その１</h3>
+<p>理由その１？その２は何？<br />
+って言うのはこの日記を読めばそのうちわかります。割とすぐに。</p>
+<p>さて、ヘックスグリッドは、CSSの都合上、HTMLだけでピクセルONLYの描画をすることができず、下書きにしてクリスタでドットを打つ、とかいう面倒なことをするハメになってしまったのだが。<br />
+普段の開発時は、プロトタイプをHTMLベースで作った後、スクショを撮り、切って貼ってUIパーツを作っていたりする。</p>
+<p>罫線とかグラデーションとか、なんかいい感じのUIパーツ作るとき、お絵かきツール使うよりCSSで書く方が圧倒的に<strong>楽</strong>なんだもん！！！！！！！！！<br />
+余白や要素のサイズだって、flexboxやらgrid layoutやら使えば自動で良い感じに計算してくれて、さぁ！！！最高かよ！！！！！！！！！！！！！！</p>
+<p>と言うことで発生した手抜き手法である。</p>
+<p>とまぁ、文字だけで説明されても良く分からんと思うので、玉露の続き物シリーズで使ったUIプロトタイプを、オマケとして展示しておく。<br />
+キー操作できるものは少なめ。<br />
+当初予定では、コマンドメニューは各キャラの側に出す予定だったみたいですね。めんどくさくなってやめたけど。</p>
+<p><a href="../omnibus/trans.html">バトル画面初版プロトタイプ</a><br />
+<a href="../omnibus/select.html">クエストセレクト画面</a><br />
+<a href="../omnibus/basemenu.html">拠点メニュー</a><br />
+<a href="../omnibus/mr.html">モニタールーム（過去イベ置き場）</a><br />
+<a href="../omnibus/submenu.html">ステータス画面</a></p>
+<p>さて、「point」と言うフォームが右に出ているものは、UIパーツをクリックすると、それぞれの要素の <strong>中央座標</strong> と要素サイズが出るようになっている。</p>
+<p>そう、ここで出た要素サイズで画像を作成し、出た座標でピクチャの描画をすると、良い感じの位置に描画が出来るのだ……！！</p>
+<p>なおこの座標表示ツール、mithrilとかいう古のフレームワークを作って作成されており、メンテナンス困難な状況となっている。<br />
+いつかVueかReactで作り直さんとなと思っているが時間も機会も無いんよな。まぁ、そのうち……。</p>
+<p>今回座標ツールを使っていないのは、シンプルに「無くても出来たから」である。<br />
+殆どの座標が計算してからの指定になるのと、物も少なく「CSSみてleftとtopを元に描画して、数ドットズレてるのは目で見て直す」で充分だったのだ。</p>
+<h2 id="年12月13日14日">2025年12月13日&amp;14日</h2>
+<p>この辺りで、良い感じの手ごたえを感じたため「このヘックスマップシステム使ってなんかミニゲーム作って、紅白の解説ゲーに載せられないか？」と考え始める。<br />
+キャラクターが移動できるシステムで、一番シンプルなゲームと言えば……。<br />
+そう、CTF（キャッチザフラッグ）特定座標にCPUより先にたどり着けば勝ち、というヤツである。</p>
+<p>単純にランダム配置にするだけではゲーム性は無いが<br />
+「各ラウンド最初に、プレイヤーが、自分の望んだ位置に障害物を設置できる。障害物にはZOCがある」<br />
+とすれば、多少のゲーム性は出るだろうと判断。</p>
+<p>ゲームシステムは決まった。あとはシナリオ的な味付け。<br />
+紅白まで時間は無い。なるべく自分が作りやすい方向で行くぞ、という事で、一番扱い慣れたキャラクターを選択。<br />
+恋人同士と言う設定のキャラなので「片方（プレイヤー）が書いたラブレターがうっかり飛んで行ってしまった。相手に見られる前に回収しよう」というシナリオが思いつく。<br />
+ベッタベタで爆笑しつつも、説明も楽なのでコレで行くことに。</p>
+<p>また、この辺りで、プロトタイプのおおよその動作がうまくいくようになる。<br />
+ただし、ツクールでは使えないようなJavaScriptの機能（オブジェクトや配列のreverseやらなんやらかんやら）をいっぱい使っていたので、その辺を崩す作業が必要となった。</p>
+<h2 id="年12月15日">2025年12月15日</h2>
+<p><video src="attachments/2025-12-15_18-53-39.mp4" controls=""><a href="attachments/2025-12-15_18-53-39.mp4">Video</a></video><br />
+なんやかんやあってプロトタイプが完成。<br />
+この日から、進捗を動画にしてmisskey.ioにUPしていた。</p>
+<p>misskey.ioのログを見るに、15日にはほぼ終わっていた。<br />
+ということで、この時点のプロトタイプVer2がこちら。<br />
+※16日のコミットなのでファイル名が20251216になっているが、たぶん15日には完成している。<br />
+<a href="../20251216.html">2025年12月15日のプロトタイプ</a></p>
+<p>赤青緑のヤツは「赤が開始」「緑がゴール」の経路探索結果である。<br />
+カーソルを動かしてEnterキーを押すと、開始・終了位置を自由に変更してテスト出来るようになっている。</p>
+<p>ソースを見ると分かるのだが、ツクールに移植することを考慮し、オブジェクトはすべて配列に展開。<br />
+各タイル情報も、(r, q)の座標の組み合わせで管理ではなく、タイルごとにIDを振り、そのタイルIDでの管理に変更。<br />
+座標とタイルIDの変換を少ない計算量で行えるよう、<code>tileIdMap</code>というマッピング配列を用意したりしてある。<br />
+（<code>tileIdMap</code>は多次元配列だが、多次元配列を普通の配列にバラすのは簡単なので気にしていない）<br />
+座標での管理だと、キャラクターの所在地を表すのに<code>r</code>, <code>q</code>の2つの変数が必要となるが、IDでの管理であれば1つの変数で事足りるのだ。</p>
+<h2 id="年12月16日">2025年12月16日</h2>
+<p><video src="attachments/2025w20251216.mp4" controls=""><a href="attachments/2025w20251216.mp4">Video</a></video></p>
+<h3 id="init-round-init.">Init, Round Init.</h3>
+<p>忘れていたコミットが行われる。<br />
+以後、ヘッダはコミットメッセージとする。</p>
+<p>このコミットにて、ふざけた内容で終わっていた<code>memo.md</code>にも、無事ルールが記載されている。<br />
+この時点で最初のセリフがほぼ完成していたようだ……。<br />
+<a href="../20251216memo-1.html">memo.md-20251216-1</a><br />
+※markdownをHTMLに変換したものです。</p>
+<p>ここまで来て、ツクールのプロジェクトを立ち上げる。<br />
+が、ツクールで新しくゲームをtkるのが久々すぎて、初期設定の諸々のやり方を忘れてテンパる。<br />
+更には、謎の不具合が発生し、ツクールがキー入力を受け付けなくなる。さらに焦る。（再起動で直った）<br />
+とまぁ、ぐだぐだしつつ2時間くらいかけて、ツクールのプロジェクトおよび、ツクール2k開発用の自分なりの初期設定が終わる。</p>
+<p>初期設定も終わったので、ゲームの構造をざっくりと考える。</p>
+<p>ツクール2000で自作システムを作るときは、ゲームの状況をステートマシンで考え、ステートマシンごとにイベントのページを分けるのが好き。<br />
+なので今回もそのシステムで行くことに。</p>
+<p>早速ステートマシンをざっくりと切る。<br />
+ステートマシンだったら入場と退場も処理分けるべきだよなー、と思ったので、その辺も意識してこんな感じのものを書く。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Init</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Round Init.</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  Init: 各種初期値設定＆ラウンド開始演出</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  Main: カーソル移動＆決定</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  Exit: バリア設置後、ゲーム開始演出で3へ</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Start Turn</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  Init: ターン開始演出？</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  Main: カーソル移動＆決定</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  Exit: 4.Actionへ</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Action</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  キャラの移動、勝利・敗北判定を行う</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  勝利した場合5へ</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  敗北した場合6へ</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  いずれでもない場合3へ</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Win</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  勝利演出</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  規定ラウンド数クリアしてるなら7へ</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  そうでないなら2へ</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Lose</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  敗北演出</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  リトライするなら1へ</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  リトライしないならMAP_STARTへ移動</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Ex</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  特殊エンド演出</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  リトライするなら1へ</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  リトライしないならMAP_STARTへ移動</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Clear</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  クリア演出</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  リトライするなら1へ</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  リトライしないならMAP_STARTへ移動</span></code></pre></div>
+<p>意識してるの最初だけやんけ！というのはご愛敬。<br />
+<code>MAP_START</code>は開始MAPのこと。<br />
+当初予定では、ミニゲーム以外のコンテンツもあり、その選択を行うMAPが最初にあったのだ。<br />
+また、後々<code>4. Action</code>は、PCターンとEnemyターンで分離した方がいいな、となって分離してます。</p>
+<p>ステートマシンがだいたい決まったので、早速、1: Init（開始時の初期描画やシナリオ演出など）と、2: Round Init（ラウンド開始時の処理）の実装を開始。</p>
+<p>この日から、本格的な実装が始まった。<br />
+紅白まであと8日だぞ？ふざけてるの？？？<br />
+まぁ、遅刻予定で考えていたから……。</p>
+<p>この時点での<code>memo.md</code>はこちら。<br />
+<a href="../20251216memo-2.html">memo.md-20251216-2</a><br />
+ゲームの内容はほぼこの時点で固まっている。隠しエンド込みで。普通に「バイソンを殺して勝利」って書いてあるなぁ。いやまぁ、実際殺してるんだけど……。</p>
+<p>ついでに、ざっと宣伝シーンを作る。<br />
+端からマトモに作るつもりがないというか、この時点では「詳しく知りたい人は茶番見てもらって、長々と見る気のない人には秒でわかる何かを叩きつければ充分だろう」と思っており<br />
+その結果がQRコードぶん投げである。</p>
+<h3 id="補足-ツクール2k開発用の自分なりの初期設定とは">補足: ツクール2k開発用の自分なりの初期設定とは？</h3>
+<p>自作ツール<code>js-to-tkcode</code>の導入である。<br />
+<a href="https://github.com/lpre-ys/js-to-tkcode">GitHub:js-to-tkcode</a></p>
+<p>要はJavaScriptをツクブリのコードに変換するツールである。<br />
+四則演算と条件分岐とループ構文はなんかいい感じに展開してくれる。<br />
+カッコを使った複雑な四則演算もちゃんとサポートOK！<br />
+変数やスイッチはもちろん番号じゃなくて名前で利用できるし、なんなら配列だって使えちゃう。<br />
+関数呼び出しも可能。制約はあるが別ファイル記載の関数を使うことも出来る。</p>
+<p>例えば、次のJavaScriptが</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/** 2025 Winter Sample */</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">main</span>()<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">main</span>() {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  tkMock<span class="op">.</span><span class="fu">comment</span>(<span class="st">&#39;#1 INIT&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  tkMock<span class="op">.</span><span class="fu">raw</span>(<span class="vs">`MenuProhibition(0)`</span>)<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">init</span>()<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">init</span>() {</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (stmStatus <span class="op">&lt;</span> <span class="dv">1</span>) {</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    stmStatus <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  tkMock<span class="op">.</span><span class="fu">changeTone</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">_loadImage</span>()<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  tkMock<span class="op">.</span><span class="fu">showScreen</span>(tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">SCREEN_NO_WAIT</span>)<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  stmStatus <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  tkMock<span class="op">.</span><span class="fu">exitEvent</span>()<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_loadImage</span>() {</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  tkMock<span class="op">.</span><span class="fu">showPicture</span>(<span class="st">&#39;hex&#39;</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_NUM_HEX</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_HIDDEN_X</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_HIDDEN_Y</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  tkMock<span class="op">.</span><span class="fu">showPicture</span>(<span class="st">&#39;tile&#39;</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_NUM_HIGHLIGHT</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_HIDDEN_X</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_HIDDEN_Y</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  tkMock<span class="op">.</span><span class="fu">showPicture</span>(<span class="st">&#39;cover&#39;</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_NUM_COVER</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_HIDDEN_X</span><span class="op">,</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_HIDDEN_Y</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">// レイヤー初期値設定</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  picLayer[<span class="dv">0</span>] <span class="op">=</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_LAYER_PC</span><span class="op">;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  picLayer[<span class="dv">1</span>] <span class="op">=</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_LAYER_ENEMY</span><span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  picLayer[<span class="dv">2</span>] <span class="op">=</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_LAYER_BARRIER</span><span class="op">;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">3</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    oldPicLayer[i] <span class="op">=</span> picLayer[i]<span class="op">;</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 普段使わないピクチャの初期値設定</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  picShoutX <span class="op">=</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_HIDDEN_X</span><span class="op">;</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  picShoutY <span class="op">=</span> tkMock<span class="op">.</span><span class="at">Const</span><span class="op">.</span><span class="at">PIC_HIDDEN_Y</span><span class="op">;</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  isSwapLayer <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>次のツクブリコードに変換される、という代物である。</p>
+<pre><code>Note(&quot;#1 INIT&quot;)
+MenuProhibition(0)
+If(01, 111, 0, 1, 4, 0)
+Variable(0, 111, 111, 0, 0, 1, 0)
+EndIf
+ScreenTone(0, 0, 0, 0, 0, 1)
+Picture(&quot;hex&quot;, 1, 0, -1000, -1000, 0, 100, 0, 1, 100, 100, 100, 100, 0, 0)
+Picture(&quot;tile&quot;, 2, 0, -1000, -1000, 0, 100, 0, 1, 100, 100, 100, 100, 0, 0)
+Picture(&quot;cover&quot;, 11, 0, -1000, -1000, 0, 100, 0, 1, 100, 100, 100, 100, 0, 0)
+Variable(0, 381, 381, 0, 0, 1, 0)
+Variable(0, 382, 382, 0, 0, 2, 0)
+Variable(0, 383, 383, 0, 0, 3, 0)
+Variable(0, 384, 384, 0, 1, 381, 0)
+Variable(0, 385, 385, 0, 1, 382, 0)
+Variable(0, 386, 386, 0, 1, 383, 0)
+Variable(0, 227, 227, 0, 0, -1000, 0)
+Variable(0, 228, 228, 0, 0, -1000, 0)
+Switch(0, 13, 13, 1)
+ScreenDisplay(19)
+Variable(0, 111, 111, 1, 0, 1, 0)
+Exit</code></pre>
+<p>ちなみに変数番号・スイッチ番号や定数値は設定ファイル<code>config.yaml</code>から読み取って変換する方式。<br />
+設定ファイルを書かなきゃいけない面倒さはあるが、自動で設定されても困る個所なので、こうするしかないかなといったところ。<br />
+当然だが実際はもっと大量に定義が書いてある。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmpStart</span><span class="kw">:</span><span class="at"> </span><span class="dv">2001</span><span class="co"> # 主に四則演算の展開時に内部的に使う一時領域の開始</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tmpEnd</span><span class="kw">:</span><span class="at"> </span><span class="dv">2100</span><span class="co"> # 内部的に使う一時領域終わり</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">varList</span><span class="kw">:</span><span class="co"> # 変数リスト</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">text1</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">text2</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">choiced</span><span class="kw">:</span><span class="at"> </span><span class="dv">11</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">randomVar</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">answerSceneId</span><span class="kw">:</span><span class="at"> </span><span class="dv">13</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">answerLoseCount</span><span class="kw">:</span><span class="at"> </span><span class="dv">14</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">gameStmId</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">switchList</span><span class="kw">:</span><span class="co"> # スイッチリスト</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">isDebug</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">isBgm</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">isDraw</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">isFlip</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">isSwapLayer</span><span class="kw">:</span><span class="at"> </span><span class="dv">13</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">pjConst</span><span class="kw">:</span><span class="co"> # 定数リスト</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">WIDTH</span><span class="kw">:</span><span class="at"> </span><span class="dv">320</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">HEIGHT</span><span class="kw">:</span><span class="at"> </span><span class="dv">240</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">PIC_EV</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">LABEL_START</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">PIC_HIDDEN_X</span><span class="kw">:</span><span class="at"> </span><span class="dv">-1000</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">PIC_HIDDEN_Y</span><span class="kw">:</span><span class="at"> </span><span class="dv">-1000</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">PIC_CENTER_X</span><span class="kw">:</span><span class="at"> </span><span class="dv">160</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">PIC_CENTER_Y</span><span class="kw">:</span><span class="at"> </span><span class="dv">120</span></span></code></pre></div>
+<p>ドキュメントを書くのが面倒で放置しているため、自分以外の人が使うことは想定していないです。ごめんね。</p>
+<p>もちろん使えない構文も多いので、実質「JavaScriptのサブセット」をツクブリのコードに変換するツールである。<br />
+とはいえ、JavaScriptとして有効なコードであるため、JavaScript向けの様々なツールの恩恵を受けることができる。<br />
+特に重要なのが自動テストが書けることで……<br />
+……と書いて気づいたが、今回テストコード全く書いてなかったな！説得力無いじゃん！！！</p>
+<p>まあ、HTML上で動作するコードをある程度そのままツクールに持ってこれるので<br />
+この手の複雑なシステムを組むときに滅茶苦茶楽なのである。<br />
+ツクール上でのデバッグとブラウザ上でのデバッグだったら、圧倒的にブラウザの方が楽でしょ？ステップ実行できるんだよ！？！？</p>
+<p>とまあそんなわけで、HTMLでプロトタイプを作っていたのは、後々<code>js-to-tkcode</code>を使う予定があったからです。</p>
+<h2 id="年12月17日">2025年12月17日</h2>
+<p>船釣りで終日不在。<br />
+当然1行どころか1文字もコードは書いていない。</p>
+<p>人生初のフグ釣りで、無事トラフグ2匹釣れました！やったー！！！</p>
+<p>そんなことをしている場合ではない。</p>
+<h2 id="年12月18日">2025年12月18日</h2>
+<p><video src="attachments/2025w20251218.mp4" controls=""><a href="attachments/2025w20251218.mp4">Video</a></video><br />
+この辺から、割と真面目にこまめなコミットが発生しているので、コミットベースで記載していく。</p>
+<h3 id="初期描画">初期描画</h3>
+<p>ゲーム起動時の描画（ヘックス類、キャラクター、手紙）<br />
+の事だと思うのだが、動作確認用のデバッグコードしか差分に無いな？？？<br />
+おそらくだいたいは16日時点でできていたのだと思う。たぶん。</p>
+<p>この辺は慣れてる人には今更な話だけども……。<br />
+ツクール2000のピクチャは都度表示すると大変重たい（らしい）ので、ゲーム呼び出し直後にピクチャの表示を画面外で行っておき、必要な時はピクチャの移動で画面内に移動させる、と言う方式にするとよい。<br />
+ので、だいたいそうなっている。</p>
+<p>一部ピクチャは初期化時点では呼び出せないものもあるが、そうしたものも、可能な限り「ピクチャの表示」を呼ばないよう実装してある。つもりだ。</p>
+<h3 id="roundinit-fix.">RoundInit fix.</h3>
+<p>fixとは言うものの、この後もじゃんじゃんバリバリRound Initのコードは直しているのだが……。</p>
+<p>まあ初期実装が終わったよという事だとおもう。たぶん。</p>
+<p>2: RoundInitの処理はだいたい下記</p>
+<ul>
+<li>ラウンド数の表示</li>
+<li>各種キャラクター類の初期描画位置設定</li>
+<li>手紙の場所抽選</li>
+<li>ツタ（障害物）設置場所選択の為のカーソル処理</li>
+<li>ツタ設置場所決定に伴う、ツタの場所設定および表示関連設定</li>
+<li>次ステートメントへ</li>
+</ul>
+<p>ということでカーソル移動の実装が必要になった。</p>
+<p>プロトタイプ上から必要な関数をコピペ。変数名の変更を始めとする、ちゃんとjs-to-tkcodeで変換できる記述への整理を行う。</p>
+<p>さて、プロトタイプはVueで作っていた。<br />
+Vueにおいて、双方向データバインディング（フォーム入力などなどで値に変更があった場合に、即時に他の表示に反映される、みたいなヤツ）を使う場合、<code>ref()</code>と言う仕組みを使うのだが、この<code>ref()</code>を使って作った変数は、JavaScript側では<code>変数名.value</code>という形で読み書きしなくてはならない。</p>
+<p>つまるところ、ツクール側に持ち込むにあたって、せっせせっせと<code>.value</code>を消す必要がでたのであった。<br />
+一括置換でいいっちゃいいんだけど、うっかり忘れて動かないとかあって割と面倒だったので次回以降ちょっと考えんとなと思うなどした。</p>
+<p>ついでに、なんか気に食わなくて変数名を変えるみたいなことをしたりしつつ、カーソル移動関連と、それに必要なユーティリティ関数群の移植を終わらせる。</p>
+<p>ただのカーソル移動と思いきや「マップ範囲内のみ移動できるように」するため、マップ範囲内かどうかの判定処理や<br />
+さらに、「マップ端まで行ったら反対側にループする」処理も必要だったりとで、結構コード量は多い。</p>
+<p>ただまぁ、プロトタイプ上ですんなり動作していた部分だったため、コピペしてちょっと変更するだけでｻｸｻｸｯと動いた。動いてしまった。</p>
+<p>ここで簡単に動いてしまったため<br />
+「もしや、紅白初日公開も可能なのでは……？」とバカなことを思い始める。</p>
+<p>また、このタイミングで描画系を別イベントに外だししている。<br />
+描画系わざわざ分けなくても良いかなと思ってたんだけど、やっぱ別イベの方が諸々楽だわ、ということで。<br />
+（なお当然だが、この時点でアニメーション類は一切実装されておらず、ツタは設置したらその場にピクチャがぽんっと表示されるのみである）</p>
+<p>一応説明しておくと。<br />
+メイン処理（ステートマシン）では、ピクチャの座標変数と描画状況のフラグの操作だけを行い<br />
+実際に「ピクチャの移動」命令を走らせるのは別イベントにしておく。</p>
+<p>別イベントでは（今回は枚数が少ないので）必要なピクチャを、それぞれのピクチャに対応した座標変数を使って、移動させるだけの命令を書いておく。<br />
+（移動させるだけ、と言っておきながら、今回、アニメーション系の処理も全部描画イベントにぶちこんだため、最終的にはｸｯｿｸｯｿｸｿｺｰﾄﾞになっております。よくないね）</p>
+<p>描画が必要かどうかを表すスイッチを1つ用意しておき、各々のイベントの「イベント出現条件」にて</p>
+<ul>
+<li>描画スイッチがON: 描画イベントを出現させ、描画。ステートマシン（ゲームロジック）のイベントは白紙のイベント（蓋）を出現させ、実行させないように</li>
+<li>描画スイッチがOFF: 描画イベント非アクティブ、ステートマシンのイベントは、ステートマシンIDに応じたページが出現し、処理が実行されるように。<br />
+としておく。</li>
+</ul>
+<p>とすると、ゲームの本処理では描画の事をあまり考えなくてもよくなるし、描画は描画で1つのイベントに詰め込んでおくことで、1イベントの修正だけで良くなり大変大変やりやすいのである。<br />
+MVCだよMVC。モデルねーけど。</p>
+<h3 id="pc-walk">PC walk</h3>
+<p>コミットメッセージ、なんとなく日本語使わない方が良い気がして、英数だけで表現しがち。</p>
+<p>ということで、PC＝プレイヤーキャラ。プレイヤーキャラの移動の実装である。<br />
+ステートマシンも3. Start turnと4. Action(のちにPC Action)に入る。</p>
+<h4 id="start-turn">3: Start Turn</h4>
+<ul>
+<li>カーソル初期化</li>
+<li>ZOC計算</li>
+<li>移動可能範囲の計算</li>
+<li>移動先選択の為のカーソル処理</li>
+<li>移動先決定後の経路決定</li>
+<li>次ステートメントへ</li>
+</ul>
+<p>最終的に、経路情報が配列<code>path[]</code>に、1歩ずつ順番に入っていくと思ってくれ。</p>
+<p>なんかめちゃくちゃ計算系が多くて大変そうな気がするが、全部プロトタイプで動作確認まで終わっているため<br />
+コピペして変数名等々をﾁｬﾁｬｯと直すだけで無事動いてくれました。カーソル移動と同じ感じ。</p>
+<p>移動可能範囲の検索とか、BFS使ってるんだけど、マジで不具合なくｽｽｯと動いて感動したよね……。</p>
+<p>というか、axial座標系使っているなら、諸々の座標計算系ってそんな難しくないんだよね。すごいよ。感動したもん。感動だらけ。安い感動だな。</p>
+<h4 id="actionaction-pc">4: Action(Action PC)</h4>
+<ul>
+<li>経路情報<code>path[]</code>から1個読み出し、PCの所在地を1歩先に進める</li>
+<li>PCの歩くアニメーションがONになったフラグを立てる
+<ul>
+<li>ついでに描画系フラグも立てる</li>
+</ul></li>
+<li>ゴールにたどり着いたらラウンド勝利のステートマシンへ</li>
+<li><code>path[]</code>が空になったら（≒全移動が終わったら）次ステートマシンへ</li>
+</ul>
+<p>ここで思い出してほしいのが、描画イベントの仕様である。<br />
+「描画スイッチがONなら描画イベントが出てステートマシンが消え、描画スイッチがOFFになると描画イベントが消えてステートマシンが出る」<br />
+つまり<br />
+「移動アニメーションフラグと描画スイッチをON」にして、描画イベントを出現させた後<br />
+描画イベントでは「移動アニメーションが完了するまで描画スイッチをONにしたまま処理を続け、移動が完了したら描画スイッチをOFFにする」<br />
+と、ステートマシン4番、Actionの処理の頭に戻ってくるのである。</p>
+<p>つまり、歩数を意識せず処理が書けるのである。楽！！！</p>
+<p>という事で無事プレイヤーキャラ（サイさん）が1マスずつ歩くようになったのだ。<br />
+もちろん、現時点でアニメーションは未実装なため、真正面を向いたままｽｩｰｯと移動するのみである。<br />
+これはこれでシュールでﾌﾌｯとなる。こういう未熟な描画が見れるのもゲーム実装の楽しい所だと思っています。</p>
+<h3 id="この日の夜">この日の夜……</h3>
+<p>夜寝る前、布団でスマホを見つつ、この先のスケジュールを検討する。<br />
+「茶番捨てたら、紅白初日に間に合うかな……？？」</p>
+<p><img src="./attachments/20251218-line.png" /><br />
+検討結果がコレである。バカじゃないの？？？<br />
+（寝る前のどうでも良い検討は自分用のLINEに流しがち）</p>
+<p>最終的に「BGMは過去作から流用して、絵を土日に描けば何とかなる」と言う結論になった。それはそれでどうかしている。<br />
+いずれにせよ、このタイミングで茶番は捨てることが確定した。</p>
+<h2 id="年12月19日">2025年12月19日</h2>
+<p><video src="attachments/2025w20251219.mp4" controls=""><a href="attachments/2025w20251219.mp4">Video</a></video></p>
+<h3 id="game.">Game.</h3>
+<p>何が言いたいんだろうねこのコミットメッセージ。おそらく、ゲームのゲームっぽい部分を実装してるぜ、みたいなイメージだと思われる。</p>
+<p>プレイヤーの移動が無事出来るようになったという事は、つまり、敵キャラ、エネミー、すなわちバイソンの移動の実装が始まるということである。<br />
+どうでも良いがバイソンのことenemyって呼ぶのめっちゃ面白くて最初数日間ずっとニヤニヤしてたわ。</p>
+<p>ここで、「4.ActionでPCとEnemyの移動同時に受け持つのしんどいな。ステートマシン分けるか」という決断をする。<br />
+決断したくせに<code>memo.md</code>の修正が行われていない。あとでやってすらいない。マジでいまだに修正されてない。ドキュメントをちゃんとしろ！</p>
+<p>なにはともあれ、4番のActionをAction Pc。5番にAction Enemyを挿入。以後のステートマシンを1個後ろにずらすという決断をする。</p>
+<p>という事でAction Enemyの実装である。</p>
+<h4 id="action-enemy">5.Action Enemy</h4>
+<ul>
+<li>敵始点でのZOC初期化</li>
+<li>敵の経路探索</li>
+<li>敵の移動処理（おおよそAction PCと同じ）
+<ul>
+<li>ここでゴールにたどり着いたら、敗北用のステートマシンへ</li>
+</ul></li>
+<li>(ZOC到達処理)※後で消えた</li>
+<li>歩き切ったら「3. Start Turn」へ（これで1ターンおしまい）</li>
+</ul>
+<p>ZOC到達処理について。<br />
+この時点では、経路探索時はZOCの考慮を行わず、単純に地図上の最短経路（障害物そのものは考慮する）を採用。<br />
+歩行中に「ZOCマスにたどり着いたら、そこで移動を強制終了する」と言う処理にしていた。</p>
+<p>だが、何も考えずにZOCに突っ込んで最短ではない経路を通ることが頻発。バイソンがそういう頭悪いことするのは解釈違い……となったため、後々、ZOCを考慮した経路探索をするように変更される。<br />
+経路探索時点でZOCの対応が終わっているため、ここでのZOC到達処理は最終的に不要となった。</p>
+<p>また、この時点で、ラウンド勝利、敗北、ゲームクリア、の3ステートマシンもざっと作成される。</p>
+<p>といっても、演出は何もなく。デバッグメッセージの後、リトライ選択肢が出るのみである。<br />
+とはいえこれで、最低限ゲームとして遊べるようになった。<br />
+「え……これ、ゲームじゃん……すご……」<br />
+等と意味不明な事を口走った記憶がある。ゲーム作ってんだからゲームになるに決まってんだろ！！！</p>
+<h3 id="delete-ad.">delete ad.</h3>
+<p>宣伝シーンを別MAPとしていたが、茶番やらないんだったら初期MAPでやりゃーええやん、となったためイベントを削除し、初期MAPの初期化イベントに移動。<br />
+（当初予定では、ゲームを起動すると「宣伝」「茶番」「ミニゲーム」の3つから選択して移動する設計だったのだ）</p>
+<h3 id="bug-fix">bug fix</h3>
+<p>今更だが、この日記をご覧の皆さまは、絶対に本プロジェクトのコミットメッセージを参考にしないように。<br />
+ふざけてんのか何のバグかちゃんと書けよ！？！？</p>
+<p>「指定タイルが歩行可能マスか？」の判定時に、障害物の判定はあったものの、PC、Enemyの所在地を除外する判定が抜けており<br />
+バイソンがサイさんをすり抜けて歩く不具合が発生。大爆笑しながら修正した記憶があるのでたぶんそれ。</p>
+<p>あとZOC初期化のタイミングもミスってたっぽい（diff見た）</p>
+<h3 id="bfs-fix">BFS fix!!</h3>
+<p>こいつ何でもかんでも、完了したら「fix」ってつけりゃあ良いと思ってんな？<br />
+当然fixなんてしていない。一番最後までチマチマ弄ってたソースまである。</p>
+<p>BFS＝幅優先探索のこと。<br />
+つまるところ、バイソンの移動経路探索処理のことである。</p>
+<p>初期Verおよびプロトタイプでは、1ターンの移動力の事は完全に無視し<br />
+「最短歩数でたどり着ける」ルートを取るようにしていた。<br />
+一番シンプルな実装ともいえる。<br />
+だが、その結果「歩数としては最短だがZOCを経由するためターン数は大幅に遅くなる」頭の悪いルートを取るケースが多発したのだ。<br />
+このままではバイソンが阿呆に見えてしまう！！！解釈違いのため何とかすべくアルゴリズムを変更することとなった。</p>
+<p>具体的な話は技術系メモの方を見てほしいのだが、「最短歩数」ではなく「最短ターン数」での経路探索へと切り替えた。</p>
+<p>簡単に言うと簡単に見えるが、簡単な話ではない。<br />
+何故なら「最短ターン数」での経路を出す場合、探索ループ中で「1ターンで到達できるマス」の探索が途中で必要になり、そこにも、BFSを使うから……。</p>
+<p>つまり、BFSの中で別のBFSを回す必要が出てくるのだ。わーお。</p>
+<p>という事で、このコミットでは、BFSを2重BFSに変更する処理を行っている。<br />
+簡単そうに言っているがめちゃくちゃめんどい。<br />
+JavaScriptで書いてるだけなんだし、関数呼び出すだけだろって？甘いなぁ、甘い。実に甘い。</p>
+<p>まずRPGツクールにスコープなんて概念は無い。すべてがグローバル変数である。<br />
+当然、同じ変数を使えばバグる。<br />
+よって、内側（到達マス探索BFS）と外側（経路探索BFS）で違う変数を使うように書き換える必要がある。</p>
+<p>さらに「whileループを途中で抜ける」のを実現するため、ラベルを利用しているのだが<br />
+このラベルの番号が被ってしまうと、意図しない場所にGoToしてしまうので、ラベル番号が被らないようになんやかんやしなきゃいけないという問題もある。<br />
+1つのイベントで複数個のBFSを呼ぶ≒ラベル番号の管理で爆発する、と言う話だ。</p>
+<p>真面目に書くなら結構大変なのだが、今回は2重程度で終わっているため、BFS関数の引数でラベルIDを操作できるようにして強引に乗り切った。<br />
+場当たり的なクソコードだが、時間が無い現状では動くのが最優先である。</p>
+<p>ということで、バイソンが少し賢くなった。やったね！！</p>
+<h2 id="年12月20日">2025年12月20日</h2>
+<p>休日は家族のための日。<br />
+という事で作業無し。</p>
+<h2 id="年12月21日">2025年12月21日</h2>
+<p>今日も家族のための日、では、あるが……。<br />
+イラストなら身内と一緒でも描ける。ということで、身内氏に「今日は絵が描きたいので一日中家に居ませんか？」と交渉。無事OKをもらったため、1日で絵を5枚描くことにする。<br />
+ぬるっと言っているが割とふざけてんな？</p>
+<p>ただ、そもそも今年は忙しいタイミングが多く「省コストで描けるイラストの画風を探ろう」というコンセプトのもと、「ゆるデフォルメ」と自分が呼ぶ画風を練習していた。<br />
+<a href="https://illust.lpre-ys.net/works/4844686">ゆるデフォルメシリーズ</a><br />
+これなら1枚1時間ちょっとでやれなくもないな、と言う算段をたてる。<br />
+ゆるデフォルメシリーズをやってなければ、画風を決めるだけでも結構な時間がかかっていたと思うので、これはマジでやっておいて良かった。というかフラグだったまである。<br />
+この画風以外にもいくつか省コストな作画方法身に着けたいわね。そのうちね。</p>
+<p>5枚それぞれ別ファイルにすると、ファイル移動でテンパりそうなので、全て1つのキャンバスで、アニメーション機能を使い差分として扱うことに。<br />
+書き出しが1発で終わるというメリットも副次的に享受できた。</p>
+<p>という事でタイムラプスは5枚+差分が1ファイルにまとまっている。<br />
+作業順とかもわかって面白いかもしれない。</p>
+<p>結果的に5枚すべて完成とはならず。線画は終わったものの、塗りは最初の3枚（手紙が飛ぶシーン、手紙を渡すシーン、イチャコラするシーン）までで時間切れ。<br />
+残り2枚+差分なら、まあ、なんとかなるだろという判断をして、素直に諦めて寝た。</p>
+<h2 id="年12月22日">2025年12月22日</h2>
+<p><video src="attachments/2025w20251222.mp4" controls=""><a href="attachments/2025w20251222.mp4">Video</a></video><br />
+ばっかじゃねーの、と言っていた、18日夜に決めたスケジュールが案外守れていることに驚愕しつつ。<br />
+ゲームとしては最低限完成したので、アニメーションの実装に入る。</p>
+<p>この日が一番コミット数が多い。14コミットだそうだ。<br />
+細かくコミットしてるだけ、とも言えるが……。頑張ったなぁ。</p>
+<h3 id="bfs-wip.">bfs wip.</h3>
+<p>BFSの探索に乱数要素が無く、バイソンの経路が予測出来てしまう状態だったため、乱数要素を追加。<br />
+ついでに、カーソルアニメーションを実装。<br />
+「こんなんで行けるんじゃね？？」ってのを雑に実装したら動いてしまったので笑った記憶がある。<br />
+マジで簡単だったので、後で続き物シリーズとかにも導入したい。</p>
+<h3 id="bfs-wip">bfs wip</h3>
+<p>雑なコミットメッセージが続く……。</p>
+<p>BFS周りのリファクタを進めていた模様。<br />
+ネストが激しくだいぶ見づらいコードだったのが、だいぶマシになった、かな……？</p>
+<p>このタイミングで、回収成功・回収失敗の2エンドのシナリオが書かれている。<br />
+（初稿なので一部言い回しが違うよ）</p>
+<pre><code>{
+  [g]あ──っ！！
+  [g]ダメですっ！ダメ！！
+  [g]見ないでください──！！！
+}
+{
+  [b]……ごめん、読んじまった
+  [b]これ、いわゆるラブレター、ってヤツ？
+  [g]あ……は、はいぃ……
+}
+{
+  [g]あぁぁ……ぅ、ぅぅ、あぁあぁぁ……
+  [b]……
+  [b]ありがと？
+  [g]うぅ、うぅぅ～～～っ
+  [b]なんか、その……
+  [b]……ごめん……
+}</code></pre>
+<p>シナリオはこの形式で書かれており、これをawkのスクリプトで<code>javascript-to-tkcode</code>用のコードに変換してツクールに持って行っている。<br />
+だが、この時点では「なんかシェルかワンライナーで良い感じに変換できるやろ～」くらいにしか考えておらず、変換スクリプト自体は作られていない。詳細は変換スクリプトができたところで語ろう。</p>
+<h3 id="bfs-fiiiiiix">BFS fiiiiiix</h3>
+<p>なんだよこのコミットメッセージ。<br />
+まあなんかテンション高かったんでしょう。</p>
+<p>BFSで探索時、探索するマスの優先度を調整。「最短ターン数の経路が複数あるなら、より歩ける方」を優先するようにした。<br />
+具体的に言うと、「歩数が2歩のマスから優先的に探索する」というロジック。<br />
+こうしたくなった原因だが、なんか速攻でZOC突っ込むのも、最短かもしれないけどなんか頭悪く見えるなぁ、と思ったので。</p>
+<p>この結果、バイソンはZOCを極力避けるような動きをすることとなった。これはこれで遠回りすることも有るが、ツタを怖がっているように見えて面白かったので採用。<br />
+ちゃんとfixしてんじゃん！そりゃコミットメッセージもテンション上がるわ。</p>
+<p>ついでに隠しエンドのシナリオも追加したり、シナリオの微修正を行ったりしている。</p>
+<h3 id="pc-walk-animation">PC Walk Animation!!</h3>
+<p>!!とかついてる。歩くアニメーションがちゃんと動いて嬉しかったんだろうな。わかる。わかるよその気持ち。</p>
+<p>この時点で、アニメーション用に歩行グラをバラして余白付けてくっつけるヤツをやった模様。<br />
+詳細は技術系メモ参照。ImageMagickがあれば3行でできるのでとっても便利。</p>
+<p>さて、歩行アニメーションには主に2つの実装が必要になる。</p>
+<ul>
+<li>足踏みアニメーション</li>
+<li>キャラクターの向き判定</li>
+</ul>
+<p>本コミットでは両方実装されているが、確か、実装時は足踏みを先に実装してから、向き判定を追加した覚えがある。</p>
+<p>さて、だいぶ上の方で言った通り、描画（ピクチャの移動）命令は、基本的なゲームロジックからは分離したイベントとしている。（drawイベント）<br />
+こうしておくことで、ゲームロジックからは座標を指定するだけで、あとはdrawイベントが良しなに描画してくれる。</p>
+<p>さて、キャラクターの歩行アニメーションについても、今どのコマで描画しているか、なんて、ゲームロジック側では意識したくない。</p>
+<p>よって、「キャラクターの基本座標<code>picPcOriginX</code>,<code>picPcOriginY</code>」のみ、ゲームロジック側で指定。<br />
+アニメーション関連の計算はdrawイベントの頭の方で行い、キャラクターの向きや歩行アニメに伴う座標加算値を<code>picPcAnmAddX</code>,<code>picPcAnmAddY</code>で算出。<br />
+最終的に<code>origin</code>の方に<code>anmAdd</code>の方を加算した値<code>calced</code>を使って描画するようにした。</p>
+<p>キャラがちゃんと歩くと一気に完成に近づいた感があって楽しい。</p>
+<h3 id="enemy-animation-fix.">Enemy Animation fix.</h3>
+<p>PCの歩行アニメーションがうまく行ったなら、後は同じようにEnemy側のアニメーションも実装するのみである。<br />
+変数が変わるくらいでやることは全く一緒。スッと実装できた記憶がある。</p>
+<h3 id="barrier-anime-init-draw.">barrier anime init draw.</h3>
+<p>障害物（ツタ）の描画のウチ、初期描画の調整。<br />
+ツタもコマアニメなので、コマアニメ用の余白有結合画像を作成。<br />
+生え切ったコマが4コマ目（一番下）になるため、座標の調整が必要になったので調整。</p>
+<p>それくらい。</p>
+<p>それくらいなんだが、本当はこれくらいの小さな粒度でコミットすべきなんだよ……？？？</p>
+<h3 id="barrier-animation-fix">Barrier animation fix!!!</h3>
+<p>ツタのアニメが完成しました。よかったね。</p>
+<p>ツタが動くのは、生やした瞬間のみなので、あまり意識することも無くて楽だった記憶。<br />
+歩行アニメとフラグ名がダブって変数名変えるの面倒だったくらいかな……。<br />
+まあそれも一括置換とかIDEの機能でｽｯって出来るし大した手間じゃないんだけど。</p>
+<h3 id="layer-fiiiiiiiiiiix">Layer FIIIIIIIIIIIX</h3>
+<p>ほんとテンション高いな？まあこの日はゾーン入ってたからね……。</p>
+<p>キャラクターが重なったとき、当然、手前に居るキャラクター程上に描画しなくてはいけない。<br />
+ツクール2000ではピクチャ番号が大きい程上に表示される。つまり、キャラクターの重なりを判定して、ピクチャ番号を変える必要がある。</p>
+<p>簡単に書いてるけどコレめっちゃめっちゃ本当にマジでなんかもうすごくいっぱい考えることあって途方もなく大変だった。<br />
+詳細は技術メモの最後の方見てね。</p>
+<p>「重なってる時だけ、重なり表現用レイヤーに移動して──」みたいな節約も考えたのだが、今回はMAXで3ユニットなので、愚直にピクチャ番号を2倍（6枚分）確保することとした。<br />
+今回コレで良いけど、後日もっとちゃんとしたの作りたくなって、ユニット数が増えてきたらどうするつもりなんだろうね。知らん。</p>
+<h3 id="del-comment">del comment</h3>
+<p>上のコミット（キャラクターの重なり描画関連）めっちゃ大変で、バグもいっぱい出て、デバッグメッセージを大量に埋めてあり、最終的にはコメントアウトして残しておいたのだが、もう要らんやろ、ということでコメントアウトしていたデバッグメッセージを全部消した。<br />
+それだけ。<br />
+それだけだけど、こういうのちゃんと別コミットにしておくと、後々差分が見やすくなるからそうすべきなんだよ。俺。</p>
+<h3 id="cursor-barrier.">Cursor Barrier.</h3>
+<p>なんだこのコミットメッセージ……。<br />
+差分を見て思い出した。</p>
+<p>ここまでの時点では、カーソルが▼しか表示されておらず、「ツタの選択なのかキャラの移動先選択なのかわかりづらい」と言う問題があった。<br />
+また、カーソル自体も、キャラに重なると少し上にズレるようになっていて（それはキャラをちゃんと見せるという意味では良いんだけど）具体的にどのマスの上に居るのか少々わかりづらい状態だった。<br />
+そこで、「ツタ選択時は半透明のツタ、移動先選択時は半透明のタイル」を表示するように決定。</p>
+<p>その「ツタ選択時は半透明のツタ」を表示させる修正がここの模様。</p>
+<p>簡単そうに言っているが、キャラクターの重なり描画の為に、ユニット描画はMAX6か所変更する必要があるため大変面倒であった。ピクチャの透明度も変数で持ちたいよ……。</p>
+<h3 id="round.">Round.</h3>
+<p>じゃあ次は「移動先選択時は半透明のタイル」かな、と思いきや、ラウンド表示（左上のヤツ）をやっている。<br />
+こういう時はやりたくなったところからやるのが一番早いので、まあ、いいんじゃないですかね。忘れてないし。</p>
+<p>ラウンド数の表示自体は、MAX6コマの1枚の画像として作っておく。<br />
+ラウンドクリア時に手紙が増える演出は、マップタイル上にゴールとして表示してる手紙を、左上のタイル上に動かすことで対応した。</p>
+<p>光る演出は割と雑に数値を入れたのだが、それっぽく見えたので良かった。<br />
+ここでもし沼っていたらと考えると恐ろしい。<br />
+今回「これでイケるかな？」って仮打ちした内容のほとんどがバッチリHITしていて、「もしあの時HITしなかったら沼って終わってたな、ラッキー！」というタイミングが本当に多い。<br />
+運で生きるのをいい加減やめろ。</p>
+<h3 id="letter-draw.">Letter draw.</h3>
+<p>いうほど手紙の描画じゃなかったコミット。<br />
+ラウンドクリア時の手紙等々の描画調整をやっていた。<br />
+この辺で、仮組で雑だった場面切り替えが良い感じになってきて、ゲームとしての手触りが上がった記憶がある。</p>
+<h3 id="letter-animation-fix.">Letter animation fix.</h3>
+<p>アニメーションではない気がするんだが……。まぁ、手紙が落ちてきた時、手紙が取られた時の演出である。<br />
+本当は手紙が落ちてくる場所も、ひらひらと落ちてくるアニメーションを描く予定だったんだが「別になくてよくね？そこに工数かけてる余裕ないよ？？？」となったため、効果音でごまかすことにした。<br />
+実際これでよかった。なんならツタも同じ感じでコマアニメ無しで良かったまである。</p>
+<h3 id="tweak">tweak</h3>
+<p>ついに来たなtweak!!!ちょっとした修正に便利な魔法のコミットメッセージ！！！！<br />
+そんなものはない。使うのをやめろ。</p>
+<p>バグってマイナスの範囲にカーソルが動く問題があったので修正。<br />
+あとなんか描画が壊れるタイミングがあったので、座標の再計算処理を入れる場所を増やしたり。</p>
+<p>今思えば、この、カーソルの範囲が壊れるバグ、原因が何となくわかる。<br />
+座標計算時に使う配列が、マップ範囲内ギリギリでしかとられておらず、たまに配列の範囲外の変数を参照しているっぽいんだよなー。<br />
+で、おそらくその範囲外の変数群が-1で初期化されてるヤツだったっぽい。<br />
+もう発生しなくなったから確認できないけど。<br />
+今度作るときは、ちゃんと、座標計算でマップ範囲外に行っても良いように、配列の範囲多めに取っておこうね。</p>
+<h2 id="年12月23日">2025年12月23日</h2>
+<p>12月18日に作ったバカのスケジュール通りに何故か進んでしまっているので、本日はイベント実装がメインである。<br />
+ゲーム部分の実装、アニメーション・演出の実装、イベントシーンの実装、と、日を分けていたの、結果的に気持ちの切り替えに繋がって良い結果になったな。<br />
+今後もやるかは知らん。</p>
+<h3 id="sce-cut">Sce, Cut</h3>
+<p>塗りが残ってたはずのイラストが全部塗りあがっている……？？？<br />
+多分22日のどっかで時間見つけてガッと全部塗った。たぶん。もうおぼえてないよ。</p>
+<p>イラストをゲーム向けに縮小減色したのと、細かいゲーム内テキストの修正。<br />
+イラストカットのツクール2000向けの縮小・減色は、続き物シリーズだと、色数を4倍にするためになんか面倒なことをしているんだけど、今回はそんなに色数多い絵も無いので、素直に縮小して256色に減色するのみとなっている。<br />
+普通の減色でいいなら<code>pngquant</code>使うのが圧倒的に綺麗なので、イラストカットの減色は基本的に<code>pngquant</code>使ってます。</p>
+<p>あと、シナリオファイルを元にセンタリングして下側に表示するような<code>js-to-tkcode</code>用のコードを吐くシェルがこのタイミングでテストされていた。</p>
+<p>ワンライナーでできないかな～って思ってたんだけど、センタリングも考えるとどう考えてもむりぽよだったので、<code>awk</code>メインのシェルを組むことにした。<br />
+なんかいっぱいググったり検索したりして作ったんだけど、今見ると何やってるのか全然全くこれっぽっちもわからない。<code>awk</code>苦手なんだよ。たまに使うけど。毎回調べながら書いて毎回何もかもを忘れてしまう……。<br />
+頑張ってちょっと読んでみたけど</p>
+<ul>
+<li>変換対象を<code>[g]</code>か<code>[b]</code>かから始まる行で検索して（行頭スペース許可）</li>
+<li>セリフの文字数を調べて</li>
+<li>余白のスペース数を計算して出して</li>
+<li>なるべく全角、全角だとキリが悪い所だけ半角か1/4スペースで埋めて</li>
+<li><code>js-to-tkcode</code>向けのJavaScriptに置換</li>
+</ul>
+<p>みたいなことをする<code>awk</code>を書いたらしいです。<br />
+例えば下記のシナリオスクリプトを</p>
+<pre><code>{
+  [b]何なの？それ
+  [g]えっ！？え、ええと……
+  [b]私、見ない方が良いヤツ？
+}</code></pre>
+<p>シェルに通すと下記になり</p>
+<pre><code>{
+  tkMock.message([&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;\\C[3]\\&gt;　　　　　　　　　 何なの？それ\\&lt;&quot;]);
+  tkMock.message([&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;\\C[9]\\&gt;　　　　　　　えっ！？え、ええと……\\&lt;&quot;]);
+  tkMock.message([&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;\\C[3]\\&gt;　　　　　　 私、見ない方が良いヤツ？\\&lt;&quot;]);
+}</code></pre>
+<p><code>js-to-tkcode</code>で最終的に下記のツクブリコードになる。超便利。</p>
+<pre><code>Text(&quot;&quot;)
+SubT(&quot;&quot;)
+SubT(&quot;&quot;)
+SubT(&quot;\C[3]\&gt;　　　　　　　　　 何なの？それ\&lt;&quot;)
+Text(&quot;&quot;)
+SubT(&quot;&quot;)
+SubT(&quot;&quot;)
+SubT(&quot;\C[9]\&gt;　　　　　　　えっ！？え、ええと……\&lt;&quot;)
+Text(&quot;&quot;)
+SubT(&quot;&quot;)
+SubT(&quot;&quot;)
+SubT(&quot;\C[3]\&gt;　　　　　　 私、見ない方が良いヤツ？\&lt;&quot;)</code></pre>
+<p>この演出好きだし、またやるときは流用しよ。</p>
+<p>ちょっと<code>awk</code>のコードは見るに堪えない感じなんで表に出すのは許してください。</p>
+<h3 id="op.">OP.</h3>
+<p>OP部分は、シナリオだけはすでに入ってる状態だったのだが、言い回しの修正と、イラストカット・SEの追加をここでやっている。</p>
+<h3 id="lose.">Lose.</h3>
+<p>負け＝回収失敗時のイベント実装をやった。<br />
+負けからやっているのは、単純に、テストが一番楽（意図的に負けるのは簡単）だったから。<br />
+ところでコミットメッセージにピリオドがあったりなかったりするの何なん。</p>
+<h3 id="clear">Clear</h3>
+<p>負けイベが実装終わったので、勝ちイベの方。<br />
+Loseと実装手順自体は全く同じなので、ぬるっとできた記憶。</p>
+<h3 id="ex-hint.">Ex hint.</h3>
+<p>Ex＝隠しエンドのこと。<br />
+回収失敗エンド時に隠しエンドのヒントを表示させるヤツをここで入れた。</p>
+<h3 id="ex-end">Ex End!!</h3>
+<p>さて隠しエンドの本実装である。<br />
+隠しエンドへの到達自体、まだ実装されていなかったので、ここでついにバイソンを直接KILLれるようになった。</p>
+<p>隠しエンド自体は最初から条件込みでほぼほぼ仕様は固まっていた。<br />
+「絶対に勝てない！！！」ってなって、サイさんがテンパッてやってしまった、というシチュエーションを想定してのことである。<br />
+よって、当初予定では「詰み配置だったら」だったのだが……。<br />
+「詰み配置」かどうかをチェックするロジック今から考えるのしんどすぎるよ無理無理、となりまして。<br />
+そもそも複雑な配置なときに、詰みかどうかを「サイさんが自分で考えて瞬時に判断」するのはキャラクター的にも無理かな、と思いまして。<br />
+「誰が見ても一目で詰みと分かる」状態≒「バイソンの隣かつ、サイさんが1ターンで到達できない場所に手紙が落ちた」時を隠しエンドの条件にしました。</p>
+<p>ただまぁ、初見でいきなり、あからさまな詰み配置が出るのもなんだなぁと思ったので、１～２ラウンドでは詰み配置になった場合に再抽選をするように。</p>
+<p>ヒントはあくまでもヒントじゃないとダメなので、ギリギリ嘘じゃないくらいの言い方にしました。<br />
+……が、やっぱり不親切かなぁと思ったので、提出後の更新で、隠しエンドの攻略情報をゲーム内に追加しています。</p>
+<h3 id="highlight">Highlight</h3>
+<p>キャラの移動先選択時、カーソルが指すタイルも光らせようとしてたのすっかり忘れててェ……。<br />
+このタイミングで入れたみたいです。</p>
+<h3 id="barrier-shout.">Barrier shout.</h3>
+<p>隠しエンドの最初のセリフに臨場感（？）を持たせるべく。ツタ設置時に「えいっ！」と掛け声が表示されるように。<br />
+隠しエンドの布石ではあるんですが、普通に手触りとしても可愛くなって良かったなと思います。</p>
+<h3 id="ex調整">Ex調整</h3>
+<p>日本語でコミットメッセージ書けるなら書けよ！？！？！？<br />
+書けるんだよなぁ、普通に……。</p>
+<p>詰み配置が出ないラウンド数の調整と、隠しエンドの演出を少し調整しました。<br />
+バイソンが倒れる音はここで追加された……。<br />
+続き物シリーズでプレイヤーキャラが死んだときの音をわざわざ選んでます。そのために続き物シリーズのソース見に行きました。えへへ。ちなみに「打撃6」です。</p>
+<h2 id="年12月24日">2025年12月24日</h2>
+<p>メリークリスマスイーッブ！！！<br />
+通院だったりケーキを買いに行く予定があったりで、割とゲーム実装以外にも忙しかった覚えがあります。</p>
+<p>さて、初日（クリスマス）に公開してもらうには、前日である今日中に提出しなくてはならない。<br />
+しかしながら阿呆なので「クリスマスに提出すればOK！」と勘違いしており、提出は25日に行われ、無事遅刻することとなった。<br />
+何がアレって、このオチだいぶ前にも1回やってるんだよね……。</p>
+<p>次からは締め切りをしっかり確認しよう！！！</p>
+<h3 id="公開用の色々">公開用の色々</h3>
+<p>サムネ、スクショ、readme.txtの整備をここでやった。</p>
+<p>readme.txtの改行コードについては本当にすまんかった……！！<br />
+掲示板やSNSでも言い訳した気がするけど！ちゃんとWindowsのメモ帳で開けるか確認はしてたんだよ！！！<br />
+Windows11のメモ帳がLFだけの改行コードにも対応してて気づかなかったってオチでした。すごいぜWin11。今更すぎんだわ。</p>
+<p>公開当初のサムネは余りにも雑雑雑でした。こんなん。<br />
+<img src="./attachments/thumbnail.png" /><br />
+あとあと「これ損してるよなぁ……。サムネにキャラ絵あった方が絶対皆遊んでくれるでしょ。バカか？」と思い、宣伝イラストを使ったサムネに更新してます。</p>
+<h3 id="cursor-bug-fix.">Cursor bug fix.</h3>
+<p>このタイミングでカーソル移動にバグが見つかる。</p>
+<p>左右移動したとき、奇数なら斜め上、偶数なら斜め下、みたいな処理を入れていたのだが（奇数偶数逆かも。忘れた）<br />
+画面下端では反転するような処理を入れていた。</p>
+<p>その結果、キャラの移動先選択時に、特定配置で、動かせるはずの場所にカーソルが動かせない不具合が出てしまった。</p>
+<p>タイミング的にゲロヤバだったため「左右移動時、移動できないと思ったら、他のマスも見る」と言うクソみたいな場当たり的なコードで逃げた。<br />
+例えば右を押したとき、「右上に移動しようと思ったが右上は移動不可タイルだった」場合「右下も移動できないかチェック。移動できそうなら右下にカーソルを移す」という処理となっている。</p>
+<p>今ならこんなことしなくても根本解決できる気がするなー。<br />
+でもなー。こういう安全弁なコードって大事だしなぁー……。</p>
+<h3 id="lose-sce-tweak">Lose sce tweak</h3>
+<p>回収失敗イベントのシナリオを微修正。</p>
+<h3 id="提出関連">提出関連</h3>
+<p>主にreadme.txtの加筆修正整え作業。</p>
+<h2 id="年12月25日">2025年12月25日</h2>
+<p>この日、無事、提出されたのであった。<br />
+前述のとおり締め切りを勘違いしていたため、残念ながら遅刻提出となってしまったが、自分の思ったスケジュールでちゃんと提出できたから、まぁヨシなんじゃないですかね。</p>
+<h3 id="release">Release!!!!!!!!</h3>
+<p>細かいテキストの言い回し調整が大量に行われている。<br />
+最後の最後にいっぱいテストPIAIしてて、気になった所をチマチマ直していた記憶。</p>
+<p>あと、このタイミングで、readme.txtの文字コードがUTF-8だという事に気づいて慌てて修正してる。</p>
+<h2 id="終わりに">終わりに</h2>
+<p>なんだかんだ、ゲーム仕様は最初から最後まで（隠しエンド含めて）ほとんど変わっていない。仕様がミニマムかつ、二転三転しなかったのが一番の勝利要素と思われる。<br />
+あとは、悩んだら自分が得意なやり方を選んだのも良かった。イベント演出をイラスト+セリフにしたのもその一環。全部歩行グラ動かすよくあるヤツにしてたら絶対間に合ってない。<br />
+あと、いわゆる「残業」は一切しなかった。睡眠時間は全く削っていない。これはマジで偉業だと思う。軽率に偉業って言うよねmisskeyの民。:igyo:</p>
+<p>反省点としては、コミットメッセージ──、と言うのは冗談として。<br />
+（仕事ではちゃんと書いてるよ！安心して！！！）<br />
+まず応募要項をちゃんと読むこと。正確な締め切りを指さし確認すべきだった。<br />
+あと、最初から予定して設計してから書いたコードは綺麗だが、後々必要になって追加した要素についてはかなり汚いクソコードになっている。<br />
+具体的に言うと、キャラピクチャの重なり順関連。本当に酷いコード……。<br />
+今度似たようなことをするのであれば、設計からやり直したい。</p>
+<p>こういうハチャメチャな進行、仕事でやるのはもう二度と嫌だ！絶対に嫌でござる！！！ではあるんだけど、趣味でやる分には楽しくていいよね……。<br />
+睡眠時間削ってないとはいえ、だいぶ目・肩・腰は終わってしまった。身体に悪いのでほどほどにしておこう。</p>
+<p>それにしても、本当によく予定通り提出できたな？？？</p>
+<p><a href="../index.html">indexにもどる</a></p>
+</body>
+</html>

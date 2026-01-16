@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2025年紅白の技術系メモ</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        background-color: #2a211c;
+        color: #bdae9d;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+    div.sourceCode
+      { color: #bdae9d; background-color: #2a211c; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffff00; } /* Alert */
+    code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #44aa43; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #049b0a; } /* Char */
+    code span.cn { } /* Constant */
+    code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+    code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.dv { color: #44aa43; } /* DecVal */
+    code span.er { color: #ffff00; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #44aa43; } /* Float */
+    code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+    code span.op { } /* Operator */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #049b0a; } /* SpecialChar */
+    code span.ss { color: #049b0a; } /* SpecialString */
+    code span.st { color: #049b0a; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #049b0a; } /* VerbatimString */
+    code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="" />
+  <!-- head.html -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+</head>
+<body>
+<h1 id="年紅白の技術系メモ">2025年紅白の技術系メモ</h1>
+<p><a href="../index.html">indexにもどる</a></p>
+<p>またヘックスマップ使いたくなった時に、絶対忘れてそうなので。俺用メモだよ。<br />
+一部ヘックスマップ関係ない物もあります。</p>
+<p>サンプルコードは読みやすさ優先で書いているので、ツクール向けにオブジェクトをバラしたりとかはしていない。<br />
+また、説明用に書いたコードがほとんどなので、動作保証もない。</p>
+<h2 id="はじめに">はじめに</h2>
+<p>とりあえずコレ読んどけ！！！！！英語だけど。<br />
+<a href="https://www.redblobgames.com/grids/hexagons/">Hexagonal Grids</a></p>
+<h2 id="ヘックスマップの組み立て">ヘックスマップの組み立て</h2>
+<p>まずは何のソフト使っても良いので、使いたいヘックスマップを画像（あるいは目で見れる形のもの）で用意する。</p>
+<p>縦ヘックスか横ヘックスかは好みでいい。<br />
+ツクール2000の雰囲気をそのまま持ち込むなら、クオータービューで作ることになる。クオータービューなら横ヘックスの方が相性がいい気がするので、今回は横ヘックスを選んだ。<br />
+以後、横ヘックスの前提で記載する。</p>
+<p>用意したヘックスマップの画像に対して、まずはaxial座標を設定する。<br />
+日本語だと円筒座標系とか言うんじゃないですかね。英語資料見てたので日本語名がわからない問題があります。<br />
+axial座標が何かは「はじめに」の資料参照。<br />
+上下、左上右下、右上左下の3軸を使う座標系のこと。ただし、2軸の値で残りの1軸の値が算出できるため、表記上は2軸のみ扱う。</p>
+<p>原点はマジでどこでも良い。<br />
+※マイナス値が扱えないエンジンの場合は別。ツクール2000は問題なし。<br />
+MAPの形次第だが、左上か中央にしておくといいんじゃないだろうか。今回は左上とした。<br />
+続いて、軸を決める。<br />
+今回、左上～右下の斜め軸をq, 上下の軸をrにした。</p>
+<p>続いて、座標を順番に振っていく。<br />
+その前に。<br />
+この時点で、axial座標系での1歩ずつの移動が出来てると楽なので、先にそっちを作る。</p>
+<h2 id="axial座標系での1歩ずつの移動">axial座標系での1歩ずつの移動</h2>
+<p>まず、6方向移動するときに「何をどれだけ増減させるか」を表す配列を作る。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> DIRECTIONS <span class="op">=</span> [</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="op">-</span><span class="dv">1</span>}<span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="op">-</span><span class="dv">1</span>}<span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">1</span>}<span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">1</span>}<span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<p>上から順番に時計回りで記載。<br />
+もちろん順番なんて覚えていられないので、下記定数を作っておく。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> UP <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> RIGHT_UP <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> RIGHT_DOWN <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> DOWN <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> LEFT_DOWN <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> LEFT_UP <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div>
+<p>後は簡単。<br />
+移動したい方向のDIRECTIONを、今の座標に足せば1歩動ける。<br />
+例えば右上に1歩歩きたいならこんな感じ。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> current <span class="op">=</span> {<span class="dt">q</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="op">-</span><span class="dv">3</span>}<span class="op">;</span> <span class="co">// 今の座標</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>current<span class="op">.</span><span class="at">q</span> <span class="op">+=</span> DIRECTIONS[RIGHT_UP]<span class="op">.</span><span class="at">q</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>current<span class="op">.</span><span class="at">r</span> <span class="op">+=</span> DIRECTIONS[RIGHT_UP]<span class="op">.</span><span class="at">r</span><span class="op">;</span></span></code></pre></div>
+<p>ぶっちゃけヘックスっぽいのは6方向になっているだけで。普通の格子マップでも同様に4方向（斜め移動も1歩にするなら8方向）定義して使うことになると思う。</p>
+<h2 id="axial座標を振る">axial座標を振る</h2>
+<p>手で1個ずつ振っても全然良いんだけど、なんか適当にforループを回しつつ、1歩ずつの移動を元にやると簡単にできる。<br />
+簡単にできるのだが、座標を振るコードは使ってすぐに捨ててしまったので残っていない……。</p>
+<p>確か……<br />
+今回は、縦最大5横最大9マスなので、なんかこんな感じのコードで振った覚えがある。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> column <span class="op">=</span> {<span class="dt">q</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">;</span> <span class="co">// 左上の方の最初の座標</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(<span class="kw">let</span> x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> x <span class="op">&lt;</span> <span class="dv">9</span><span class="op">;</span> x<span class="op">++</span>) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cell <span class="op">=</span> column<span class="op">.</span><span class="fu">copy</span>()<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> y <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> y <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> y<span class="op">++</span>) {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// まずは縦に振る</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    cell<span class="op">.</span><span class="at">q</span> <span class="op">+=</span> DIRECTIONS[DOWN]<span class="op">.</span><span class="at">q</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    cell<span class="op">.</span><span class="at">r</span> <span class="op">+=</span> DIRECTIONS[DOWN]<span class="op">.</span><span class="at">r</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 表示用の変数に追加</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 1列終わったら、次の列の一番上に移動させる</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  cell <span class="op">=</span> column<span class="op">.</span><span class="fu">copy</span>()<span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 実際の移動先は、奇数or偶数で、右上と右下を切り替える</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  cell<span class="op">.</span><span class="at">q</span> <span class="op">+=</span> DIRECTIONS[RIGHT_UP]<span class="op">.</span><span class="at">q</span><span class="op">;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  cell<span class="op">.</span><span class="at">r</span> <span class="op">+=</span> DIRECTIONS[RIGHT_UP]<span class="op">.</span><span class="at">r</span><span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="タイルidを振る座標とidの相互変換">タイルIDを振る＆座標とIDの相互変換</h2>
+<p>JavaScriptの世界で扱うのであれば、そのまま、各タイルを座標オブジェクト<code>{q: Integer, r: Integer}</code>で管理すればいいのだが<br />
+生憎、RPGツクールにオブジェクトと言う概念は無い。<br />
+1タイル1変数（1整数）で表せるのが理想となる。</p>
+<p>そこで、各タイルにIDを振って、IDとaxial座標を相互に変換できるようにする。</p>
+<p>具体的には、二次元配列でマッピング配列を作り</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tileIdMap[q][r]</span></code></pre></div>
+<p>と書くことで、タイルIDが取得できればいい。<br />
+ただし、axial座標は平気でマイナスに入る。当然、配列のインデックスにマイナスなんて入れようものなら死ぬ。<br />
+そこで、qとrのMINを取得（あるいは事前に定数に定義）しておき、下記関数で取得できるようにする。</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> getTileId <span class="op">=</span> (q<span class="op">,</span> r) <span class="kw">=&gt;</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> qOffset <span class="op">=</span> q <span class="op">-</span> MIN_Q<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rOffset <span class="op">=</span> r <span class="op">-</span> MIN_R<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> tileIdMap[qOffset][rOffset]<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>tileIdMapの中身は、MAPの形次第なので、頑張って自分で書いて。<br />
+1回書けばいいだけなので、手作業で粛々とやった。</p>
+<p>範囲外の場所には<code>-1</code>を設定しておく。<br />
+これにより、getTileIdでマイナスが帰ってきたら「マップ範囲外なんだな」とわかるようになる。</p>
+<p>タイルIDから座標を取りたいこともある。<br />
+ということで、タイルIDごとの座標リストも作る。<br />
+これはもうシンプルに、<code>tiles[id]</code>で取れればそれでいい。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> tiles <span class="op">=</span> [</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">1</span>}<span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">q</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>}<span class="op">,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<p>座標とタイルIDは、コード上だけではなく、図として見れる状態にしておくと開発中とても助かるというかデバッグ中常に見ることになるので、必ず用意しておこう。<br />
+今回はプロトタイプで見れる機能を用意した。</p>
+<h2 id="map範囲内チェック-isinside">MAP範囲内チェック: isInside</h2>
+<p>上でも書いたが、<code>getTileId</code>を呼んで、範囲外だったりマイナスだったりが帰ってきたら外。有効な値が帰ってきたら内側。<br />
+配列の範囲外に到達すると壊れる可能性があるので、必要なら一周多めに定義しておくといい。</p>
+<h2 id="移動可能チェック-iswalkable">移動可能チェック: isWalkable</h2>
+<p>ここで言う「移動可能」は、移動力を考慮しない。<br />
+MAP全体で「ここにユニットが立っていていいかどうか」を判定するものである。<br />
+「MAP内だが障害物があって侵入できない」みたいなマスを考慮した判定ということになる。<br />
+もちろん各種ユニットも障害物である。<br />
+「MAP範囲内チェックで内側かつ、誰も居ないタイルならOK」<br />
+という判定となった。</p>
+<h2 id="カーソル移動1-moveup-movedown">カーソル移動1: moveUP, moveDown</h2>
+<p>ここまでくると、カーソル移動が作れるようになる。<br />
+横ヘックスなら、上下移動はめちゃくちゃ楽。何も考えずに下記でいい。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>next<span class="op">.</span><span class="at">q</span> <span class="op">=</span> current<span class="op">.</span><span class="at">q</span> <span class="op">+=</span> DIRECTIONS[UP]<span class="op">;</span> <span class="co">// 下移動ならDOWN</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>next<span class="op">.</span><span class="at">r</span> <span class="op">=</span> current<span class="op">.</span><span class="at">r</span> <span class="op">+=</span> DIRECTIONS[UP]<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="fu">isWalkable</span>(next<span class="op">.</span><span class="at">q</span><span class="op">,</span> next<span class="op">.</span><span class="at">r</span>)) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 移動不可なら元に戻す</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  next <span class="op">=</span> current<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>画面端でループさせるのであれば、画面端の座標をそれぞれ定義しておいて、その座標に到達したら、反対側の座標にワープするように組めばいい。</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> topList <span class="op">=</span> [{<span class="dt">q</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>}<span class="op">,</span> <span class="op">...</span>]<span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> bottomList <span class="op">=</span> [{<span class="dt">q</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">5</span>}<span class="op">,</span> <span class="op">...</span>]<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">// ... 略</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> index <span class="op">=</span> topList<span class="op">.</span><span class="fu">findIndex</span>(current)<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (index <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span>) {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 画面上端からさらに上を押された場合、対応する下端タイルに移動</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  next <span class="op">=</span> bottomList[index]<span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  next<span class="op">.</span><span class="at">q</span> <span class="op">=</span> current<span class="op">.</span><span class="at">q</span> <span class="op">+=</span> DIRECTIONS[UP]<span class="op">;</span> <span class="co">// 下移動ならDOWN</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  next<span class="op">.</span><span class="at">r</span> <span class="op">=</span> current<span class="op">.</span><span class="at">r</span> <span class="op">+=</span> DIRECTIONS[UP]<span class="op">;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">// 移動不可チェックなどなど</span></span></code></pre></div>
+<h2 id="カーソル描画タイルの描画座標">カーソル描画（タイルの描画座標）</h2>
+<p>変数値見てても楽しくないので、早めに描画は実装しよう。<br />
+カーソル移動ができてきたあたりで実装しておくと、テストもしやすくてよい。<br />
+axial座標をもとに下記でタイルの座標が出せる。</p>
+<h3 id="x座標-getx">X座標: getX</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getX</span>(q<span class="op">,</span> r) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> q <span class="op">*</span> HEX_WIDTH <span class="op">+</span> HEX_LEFT<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>rは計算に使わないが、引数として受け取るようにしておくと使うときに混乱しなくって良い。<br />
+<code>HEX_WIDTH</code>はマスの横幅<strong>ではなく</strong>、少し小さな値になる。斜めだからね。<br />
+マスのサイズに合わせて適切な大きさにしておく。今回は24だった。（マスの大きさから計算する方法もあるがこの程度なら雑に決め打ちで入れて微修正でもいいんじゃないかな）<br />
+<code>HEX_LEFT</code>は左側の余白。</p>
+<h3 id="y座標-gety">Y座標: getY</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getY</span>(q<span class="op">,</span> r) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> r <span class="op">*</span> HEX_HEIGHT</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> q <span class="op">*</span> HEX_HEIGHT <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> HEX_TOP<span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><code>HEX_HEIGHT</code>はマスの縦幅。<br />
+rが1増えると縦に1マス増えるので、rはそのまま<code>HEX_HEIGHT</code>をかける。<br />
+一方qは、qが1増えるごとに半分下に下がるので、<code>HEX_HEIGHT</code>の2分の1をかけることになる。<br />
+<code>HEX_TOP</code>は上の余白。</p>
+<p>後はカーソル用にY値を調整してやればよい。<br />
+キャラの描画も基本的に同じ。</p>
+<h2 id="カーソル移動2-moveleft-moveright">カーソル移動2: moveLeft, moveRight</h2>
+<p>左右移動だが、上下と同じようにはいかない。<br />
+何故なら、横ヘックスの場合、右キーを押して移動する先は、右上 or 左上、と、2パターン存在するからだ。</p>
+<p>どのように制御するかはゲーム設計による。一般的なのは下記3パターンじゃないかな。<br />
+* 横キーは原則「左上or右下」の移動、逆に移動したいなら上キーと組み合わせてね。<br />
+* 横キーは原則「左上or右下」の移動だが、特定キーと同時押しで反転する。<br />
+* 奇数列なら斜め上、偶数列なら斜め下の移動とする<br />
+いずれもメリットデメリットがある。手触りが好みなものを選ぼう。</p>
+<p>今回は「奇数偶数で斜め上斜め下を切り替える」方針とした。<br />
+最上段、最下段で考えることが増えて少しクソコード化してしまった。次回以降もう少しスマートに書こう。</p>
+<p>もちろん、画面端でループさせるなら、<code>moveUp</code>, <code>moveDown</code>同様のループ処理が必要になるぞ！</p>
+<h2 id="隣接マス取得-getneighbors">隣接マス取得: getNeighbors</h2>
+<p>指定座標の周囲6マスを取得する。<br />
+ただし、移動不可のマスは対象外とする。<br />
+ZOCの判定に使うのはもちろん、この後のBFSで滅茶苦茶使うのでマストで実装が必要。<br />
+実装はだいぶシンプル。6回回して、1方向の座標を取得し、移動可能かチェックするだけ。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> getNeighbors <span class="op">=</span> (q<span class="op">,</span> r) <span class="kw">=&gt;</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> list <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 6方向なので6回まわす。</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">6</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> nextQ <span class="op">=</span> q<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> nextR <span class="op">=</span> r<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    nextQ <span class="op">+=</span> DIRECTIONS_Q[i]<span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    nextR <span class="op">+=</span> DIRECTIONS_R[i]<span class="op">;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 移動可能ならセット</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">isWalkable</span>(nextQ<span class="op">,</span> nextR)) {</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>      list<span class="op">.</span><span class="fu">push</span>(<span class="fu">getTileId</span>(nextQ<span class="op">,</span> nextR))<span class="op">;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> list<span class="op">;</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<h2 id="bfs幅優先探索">BFS（幅優先探索）</h2>
+<p>メインコンテンツ！！一番楽しいところ。</p>
+<p>だが、ここまで来るとヘックスマップっぽい箇所は皆無となる。格子マップでも全く同じ方法で作れる。<br />
+ヘックスじゃなくて普通の格子マップSRPGとか作りたいならここだけでも見るといい。</p>
+<p>主に下記2点で使う。<br />
+1. プレイヤーキャラの移動力を考慮した移動範囲の算出<br />
+2. 敵キャラの移動経路の算出<br />
+2はCPUの行動ロジックの肝となる。いくつか調整項目もあり、最後まで弄る事が多い。<br />
+一方1は答えはほぼ決まっている。また、2の計算で1が必要になることもある。</p>
+<p>よって、1. 移動範囲の算出から先に実装するのをオススメする。</p>
+<h3 id="移動範囲の算出基本的なbfs-calcwalkrange">1. 移動範囲の算出（基本的なBFS）: calcWalkRange</h3>
+<h4 id="範囲算出">範囲算出</h4>
+<p><img src="attachments/bfs1.gif" /><br />
+探索待ちマスを管理する<code>queue</code>と、どのマスから到達したかを保存する<code>cameFrom[]</code>という配列を主に使う。<br />
+※移動範囲だけがわかればよいのであれば、<code>cameFrom[]</code>は必要ないのだが、移動範囲算出後、キャラクターを歩かせる必要がある。その際の経路として使うため<code>cameFrom[]</code>は移動範囲の算出でも必要となる。<br />
+また、移動範囲の算出なので、開始マスから何歩でたどり着くかを保存する<code>walkDists[]</code>という配列も用意する。<br />
+※経路探索だけでよいなら、<code>walkDists[]</code>は必要ない。</p>
+<p>まず、もろもろの変数の初期化を行ったのち、<code>queue</code>に探索開始のマス（キャラが今立っているマス）をpush。<br />
+このとき、<code>cameFrom[]</code>は大きなマイナス値で初期化しておく。今回は<code>-999</code>とした。<br />
+続いて、開始マスは「どこからも到達しないが、すでに探索済み」であることを表すため、<code>cameFrom[start]</code>に<code>-2</code>をセットしておく。<br />
+また、<code>walkDists[]</code>は<code>-1</code>で初期化し、<code>walkDists[start]</code>には<code>0</code>をセットしておく。</p>
+<p>続いて、<code>queue</code>が空になるか、何らかの終了条件を満たすまでwhileループを行う。<br />
+※移動範囲の算出の場合、終了条件は無いが、経路探索の場合はゴールマスにたどり着いたらそこで終了となる。</p>
+<p>まず、<code>queue</code>から1つ、探索起点マス<code>current</code>をpop。<br />
+<code>current</code>の値をチェックする。<br />
+今回は移動範囲の算出なので、<code>walkDists[current]</code>が移動力(今回は全員<code>2</code>)以上なら、whileループをcontinueしてスキップする。（以上なので、<code>2</code>でもスキップ）<br />
+また、いわゆるZOCの影響があるのであれば、ZOCだった場合もスキップする。<br />
+※ZOCは事前にZOC発生オブジェクトの隣接マスを<code>getNeighbors</code>で取得した後、<code>zoc[tileId]</code>という形式の配列にzocならフラグを建てたりキャラIDを登録したりして管理するとよい。</p>
+<p>探索対象だったら、続いて、<code>getNeighbors(current)</code>で、探索起点マスの周囲6マスを取得。forループなどで、隣接マス<code>next</code>を1件ずつチェック。<br />
+<code>next</code>がまだ到達したことのないマス(＝<code>cameFrom[next]</code>が初期値<code>-999</code>)だったら、<code>cameFrom[next]</code>に<code>current</code>を代入。<br />
+<code>walkDists[next]</code>には、<code>walkDists[current]</code>に<code>1</code>を足した値を代入。<br />
+最後に、<code>queue</code>に探索起点マスとして追加。</p>
+<p>whileループここまで。<br />
+<code>queue</code>が空になったら、必要なマスはすべてマークが終わったことになるので、最後に結果の<code>cameFrom</code>をまとめて返す。</p>
+<p>利用する側では、<code>cameFrom[tileId]</code>に有効なタイルID(<code>0</code>以上の値)が入っていれば、移動可能マスとして扱えばよい。</p>
+<h4 id="経路復元">経路復元</h4>
+<p><img src="attachments/path1.gif" /><br />
+さて、移動可能マスのリストを取得することができた。<br />
+何らかの手段でプレイヤーにそれを伝え、プレイヤーが、移動可能マスのリストから移動先を選択したとする。</p>
+<p>さて、その移動先へはどのような経路で到達するのだろうか？</p>
+<p>移動アニメーションを一切行わないのであれば、経路復元は不要だが、おおよそ普通のゲームであれば、1マスずつ歩いて移動するアニメーションを見せるだろう。<br />
+ということで、<code>cameFrom</code>を使って経路を復元する必要がある。</p>
+<p>移動先のマスIDは<code>goal</code>という変数に入っているとして、<code>path[]</code>という配列に経路を保存するとしよう。<br />
+まず、<code>cameFrom[goal]</code>をとりあえず<code>current</code>にでも保存。<code>path</code>に<code>push</code>なりなんなりで末尾に追加する。<br />
+続いて、<code>cameFrom[current]</code>を<code>current</code>に代入（1個たどる）、また、<code>path</code>の末尾に追加する。<br />
+あとは<code>current</code>が<code>-2</code>(開始マスのマーク)になるまで続ける。</p>
+<p>さてこれで<code>path</code>に経路が入った、と思いきや、<code>path</code>はゴールからの道順になっている。<br />
+普通の利用用途であれば、逆順になっていると思うので、<code>path.reverse()</code>なり何らかの方法で、逆順に読みだす必要がある。</p>
+<h3 id="cpuの経路探索">2. CPUの経路探索</h3>
+<p>続いて、CPUの経路探索になる。<br />
+早速説明、の前に、実装時に意識しておくべき重要な事柄があるため、先に説明する</p>
+<h4 id="利用する変数ラベルについての注意">利用する変数・ラベルについての注意</h4>
+<p>CPUの経路探索だが、おそらく最終的には「最短ターン数での経路」が欲しくなる。（今回の説明も、最終的にはそこにたどり着く）<br />
+最短ターン数を出すためには、敵キャラの移動力をもとに、各ターン、歩行可能範囲を算出する必要がある。<br />
+そう、<strong>経路探索の中で、1. 移動範囲の算出のBFSを回す</strong>必要があるのだ。<br />
+今時の……いや、普通のプログラミング言語であれば、あまり深く意識する必要は無いのだが、RPGツクール2000においてスコープという概念は無い。2k向けの変換エンジンである<code>js-to-tkcode</code>も、原則変数はすべてグローバルという扱いになっている。<br />
+つまり、1. 移動距離の算出用の変数名（変数番号）と、2. CPUの経路探索で使う変数名（変数番号）に重複がある場合、<strong>ものによってはバグになる</strong>、ということである。<br />
+ということで、安全を期すのであれば、すべての変数名（変数番号）は独立させておくこと。<br />
+また、whileループのcontinueやbreakの実現のためにラベルとGOTO命令を利用するのであれば、そのラベルの番号も独立させておく必要がある。</p>
+<p>後々分離させようと思うとだいぶ面倒だし、高確率で漏れが発生してバグになるので、最初から意識しておく方がいい。<br />
+最初から意識なんてできなかったためバグがいっぱい出ました。悲しいね。</p>
+<h4 id="経路探索その1-最短歩数の経路">経路探索その1: 最短歩数の経路</h4>
+<p>まずは1.移動範囲の算出とほぼ同じロジックを使って、最短歩数での経路を取得しよう。</p>
+<p>まず、経路探索においては、歩数の概念は不要なため、<code>walkDists[]</code>の配列は不要となる。<br />
+結果を入れる配列は<code>cameFrom[]</code>のみでよい。<br />
+<code>queue</code>の初期化等は移動範囲の算出と同等。<br />
+また、今回は目標のマスにたどり着いたら探索終了となるため、目標と表す<code>goal</code>も用意する。マップID、q, r それぞれあると良い。</p>
+<p>探索自体は基本的なBFSと同じである。<br />
+1. <code>queue</code>から1つpopし、<code>current</code>に入れる。<br />
+2. <code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える<br />
+* この時、<code>hasRoute</code>等の名前で「ゴールに到達した」フラグを立てておくと、後々の不具合チェックに役立つので立てておこう。<br />
+3. 探索が続くなら、<code>current</code>の周囲6マス<code>neighbors[]</code>を取得<br />
+4. <code>neighbors</code>を順番にチェック。未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。<br />
+5. <code>queue</code>が空じゃないなら、1に戻る。<br />
+ざっくりこんな感じ。<br />
+到達・未到達の判定をどうする？などは、1. 移動範囲の算出のBFSを参照してほしい。</p>
+<p>さて、経路探索はCPUの移動ロジックに使う。<br />
+となれば、経路は予測可能じゃない方が望ましい。<br />
+もちろん、最短経路が1つしかないのであれば、常にそれが選ばれるべきだが<br />
+最短経路が複数パターンあるのであれば、そのいずれかがランダムに選ばれるべきである。</p>
+<p>経路のランダム性をどうやって実現するか？<br />
+それは、上記の探索ループの4番、<code>neighbors[]</code>を順番にチェックする箇所にて、その<strong>チェック順をランダムに</strong>すればいい。</p>
+<p>ただし、RPGツクールにおいて、配列のランダムソートは果てしなくめんどくさい。やろうと思えばできるがやりたくない。</p>
+<p>予測不可能であればなんでも良いので、ここでは、<code>neighbors[]</code>のチェック順を昇順か降順かをランダムに決めることにした。<br />
+つまりこうである。<br />
+（JavaScriptのサンプルコードのため、<code>reverse</code>を利用しているが、実際には配列の添え字を大きい方から見るようなコードで実装する必要がある）</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> isDesc <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">&gt;</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> neighbors <span class="op">=</span> <span class="fu">getNeighbors</span>(currentQ<span class="op">,</span> currentR)<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (isDesc) {</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  neighbors<span class="op">.</span><span class="fu">reverse</span>()<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="kw">const</span> nextId <span class="kw">of</span> neighbors) {</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 隣接マスの到達チェックなどなど</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>これだけでもランダム性は担保できる。<br />
+無理に配列のランダムソートを噛まして計算量を増やすくらいならこれで充分。</p>
+<h4 id="最短歩数の経路復元">最短歩数の経路復元</h4>
+<p>経路の復元も、基本的に移動範囲の算出と変わらない。<br />
+ただし、<code>hasRoute</code>（ゴール到達フラグ）が<code>false</code>の場合、何らかの理由でゴールに到達できなかったという事になる。<br />
+今回のゲームであれば、ゴールへの経路が遮断されることは絶対にない。よって、経路復元直前に<code>hasRoute</code>をチェック。<code>false</code>であればエラーメッセージを出す等しておく。<br />
+※もちろん、ユニット数が多いゲームになれば、ゴールマスへの経路が敵ユニットに完全にふさがれており、到達できない、と言ったケースも有り得る。<br />
+　その場合にどういう経路を取らせるかは、また考える必要がある。</p>
+<p>経路復元自体は移動範囲の算出と同じで良い。<br />
+ただし、経路の全てが必要になるわけではない。今回であれば、敵ユニットの移動力は<code>2</code>なので、スタートから2つ取れればそれでよいこととなる。</p>
+<h4 id="経路探索その2-最短ターン数の経路探索">経路探索その2: 最短ターン数の経路探索</h4>
+<p><img src="./attachments/bfs2.gif" /><br />
+さて、ここまで組んで動かしてみると、いささか敵が阿呆になってしまう。<br />
+というのも、本ゲームにはZOCがある。<br />
+最短歩数だけで経路を決めてしまうと、ZOCに突っ込んでしまい、「歩数的には最短だが、ターン数は大幅に遅くなってしまう」経路を選んでしまうケースがあるのだ。</p>
+<p>もちろん、阿呆な敵という演出であればこのままでも良いが、基本的には敵はある程度賢いはずなので、最短歩数ではなく最短ターン数での経路探索を行う必要がある。</p>
+<p>では、最短ターン数をどう実現するか。<br />
+最短歩数時の経路探索ループは下記であった。<br />
+1. <code>queue</code>から1つpopし、<code>current</code>に入れる。<br />
+2. <code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える<br />
+3. 探索が続くなら、<code>current</code>の周囲6マス<code>neighbors[]</code>を取得<br />
+4. <code>neighbors</code>を順番にチェック。未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。<br />
+5. <code>queue</code>が空じゃないなら、1に戻る。<br />
+ここの3～4で取得・チェック対象とする<code>neighbors[]</code>を、隣接6マスではなく、<code>current</code>から1ターンで到達できるタイル全て、とすればよい。</p>
+<p>具体的には、こう。<br />
+※移動力2の想定<br />
+1. <code>queue</code>から1つpopし、<code>current</code>に入れる。<br />
+2. <code>current</code>が探索終了条件（≒<code>goal</code>と同じ）だったらループを抜けて探索を追える<br />
+3. 探索が続くなら、<code>calcWalkRange(current)</code>にて、<code>current</code>からの移動可能範囲を計算する。<br />
+* 結果は<code>walkCameFrom[]</code>および<code>walkDists[]</code>を参照することとする。<br />
+4. <code>walkCameFrom[]</code>を順番にチェック（MAP全体のタイル数分回す）<br />
+* ※今チェックしているIDを<code>nextId</code>とする<br />
+1. <code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく<br />
+2. <code>walkDists[nextId]</code>が1～2の範囲（移動力の範囲内）かつ<br />
+3. 未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。<br />
+5. <code>queue</code>が空じゃないなら、1に戻る。</p>
+<p>もちろんここでも、4番の順番にチェックする箇所で、乱数による昇順・降順の切り替えは行うこと。</p>
+<h5 id="あじつけ">あじつけ</h5>
+<p>ここまでくればわかるかもしれないが、3～4の探索範囲と探索時の優先順位を操作することによって、ある程度CPUの動きを操作することができる。<br />
+今回は、最終的に「同一ターン数ならより多く歩ける方」を選ぶ、というアルゴリズムとした。<br />
+これにより、ZOCをなるべく避けるような動きになっているはずである。</p>
+<p>コードとしては、4番の探索を下記に変えている。<br />
+まずは下記ループを回し、移動力2の経路のみ先に探索する。<br />
+1. <code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく<br />
+2. <code>walkDists[nextId]</code>が<code>2</code>かつ<br />
+3. 未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</p>
+<p>続いて、同様に回して移動力1の範囲を探索する。<br />
+1. <code>walkCameFrom[nextId]</code>が初期値<code>-999</code>でなく<br />
+2. <code>walkDists[nextId]</code>が<code>1</code>かつ<br />
+3. 未到達なら<code>cameFrom[neighbor]</code>に<code>current</code>を設定し、<code>queue</code>にpushする。</p>
+<h4 id="経路復元その2-最短ターン数の経路復元">経路復元その2: 最短ターン数の経路復元</h4>
+<p><img src="./attachments/path2.gif" /><br />
+さて、最短ターン数の探索はこれで無事出来たのだが、このアルゴリズムで探索を回すと、これまで通り<code>cameFrom[]</code>を辿って経路を復元しようとすると、飛び石になってしまう。<br />
+なぜなら、<code>cameFrom[]</code>には、1ターンで到達出来た場所のマスが入るからである。<br />
+よって、ここから実際に1ターンで移動する経路を割り出すためには、もう1回経路探索を行う必要がある。もちろん、この探索ではZOCを意識しなくてはいけない。（うっかりZOCを通るルートを選ぶと意図したルートにならない）<br />
+色々とやり方があるが、ここでは「一度移動範囲の算出を行い、その結果を<code>walkCameFrom[goal]</code>から辿っていく」方式とした。</p>
+<h3 id="描画関連">描画関連</h3>
+<p>ヘックスマップとはほぼ全く関係ないが、描画関連のロジックについて一部記載しておく。</p>
+<h4 id="カーソルアニメーションについて">カーソルアニメーションについて</h4>
+<p>ピクチャの移動で1ドットずつずらすようなループ動作を作って、どっか別のイベントとして置いておいて「並列実行」設定にしておくと出来る。</p>
+<h4 id="アニメーション素材の作り方">アニメーション素材の作り方</h4>
+<p>例によって例のごとくImageMagickを使っている。<br />
+自作の<code>magic-pot</code>で使うから以前に、普通にゲーム制作で便利過ぎるので入れることをオススメする。</p>
+<p>今回、320x240サイズのキャンバスの中央に画像を配置したものを各コマで作成し、それを結合したものを利用している。<br />
+歩行グラを元に、素材を作るのであれば、まず、1キャラ分の素材を切り出してから</p>
+<p>1コマごと切り出したファイルを、<code>tmp</code>ディレクトリ以下に作成して</p>
+<pre class="shell"><code>magick .\material\g-full.png -crop 24x32 +repage +adjoin tmp/g_%03d.png </code></pre>
+<p>切り出した各画像を320x240サイズの緑色の画像の中央に配置して</p>
+<pre class="shell"><code>magick mogrify -path tmp/padded -background &quot;#00FF00&quot; -gravity center -extent 320x240 tmp/g_*.png</code></pre>
+<p>横3, 縦4で並べ直す。</p>
+<pre class="shell"><code>magick montage tmp/padded/g_*.png -tile 3x4 -geometry +0+0 -background none g_full.png</code></pre>
+<p>と、今回使ったようなものが出来る。</p>
+<h4 id="キャラクターの移動時の向きの算出">キャラクターの移動時の向きの算出</h4>
+<p>当然だが、歩くとき、キャラクターは歩く方向を向く。<br />
+ツクールの歩行グラは上下左右の4方向ある。<br />
+一方、ヘックスマップは6方向への移動である。<br />
+よって、移動方向が上下左右のどちらに向いているか判定する必要がある。</p>
+<p>今回は1歩ずつの移動しかないため、移動先のタイルを見て「横方向の移動だったら～」みたいに分岐するのも悪くは無いが、例えば「飛行ユニットはタイルを横断して一気に動く」みたいなことをしたくなると大変面倒である。<br />
+よって、単純に「移動先と移動元の座標から、縦方向と横方向の移動量を取得。移動量を比較して向いている向きを判断する」という方針にした。</p>
+<p>具体的には下記。<br />
+1. x, yともに移動先-移動元を計算し、移動量dx, dyを取得する<br />
+2. dx, dyを絶対値に変換する(adx, ady)<br />
+* ツクールには<code>abs()</code>なんて便利な物は無いので、自前で実装する<br />
+3. 横方向の移動量の方が大きい場合（adx &gt; ady）、左右方向に向いていると判断<br />
+1. dxが正なら右、dxが負なら左向き<br />
+4. 縦方向の移動量の方が大きい場合（else）、上下方向に向いていると判断<br />
+1. dyが正なら下、dyが負なら上</p>
+<h4 id="移動アニメーション時の移動量の考え方">移動アニメーション時の移動量の考え方</h4>
+<p>特定の座標から特定の座標に移動する場合、移動後の座標から移動前の座標を引いて、移動量を求め、それを移動に使うフレーム数で割れば、1フレームの移動量が算出できる。<br />
+XもYも同様なので、以後すべてX座標の話とするが……。</p>
+<p>例えば、x:30からx:70に30フレームかけて移動する場合。<br />
+まずは移動量を求める。<br />
+75 - 30 = 45。<br />
+30フレームかけて移動するため<br />
+45 / 30 = 1.5<br />
+1フレームに1.5ピクセル、ピクチャを移動させればよいということだ。</p>
+<p>これで終われば簡単なのだが、ツクールでは小数点を扱えないため、このやり方は破綻する。<br />
+移動量の商と余りを別々に考慮する必要がある。<br />
+移動フレームごと、毎回下記計算にて、移動量を算出する。</p>
+<ul>
+<li>※まず、余りの合算を保存するための変数を用意する。ここでは<code>restSumX</code>とする。</li>
+</ul>
+<ol type="1">
+<li>移動量÷移動フレーム数を整数の範囲で求め、移動量のベースを出す。今回は45÷30で<code>1</code></li>
+<li>続いて、上記の余りを求める。今回は<code>15</code></li>
+<li><code>restSumX</code>に余りを足す。今回は<code>15</code></li>
+<li><code>restSumX</code>が移動フレーム数<code>30</code>以上になったら、移動量に1を足し、<code>restSumX</code>から移動フレーム数を引く</li>
+</ol>
+<p>とすることにより、良い感じに余り分の移動量も各フレームに割り振って移動ができる。</p>
+<h4 id="ユニットの前後関係">ユニットの前後関係</h4>
+<p>ツクールのピクチャはピクチャ番号によって重なりが決まる。<br />
+各ユニットの位置に応じて、適切にピクチャ番号を入れ替えないと、前後関係が狂ってしまう。</p>
+<h5 id="回避方法1-各ユニットが絶対に重ならないようなグラフィック仕様にする">回避方法1: 各ユニットが絶対に重ならないようなグラフィック仕様にする</h5>
+<p>マスの大きさを大きくすることによって、ユニットが絶対に重ならないようにするという逃げは可能。<br />
+今回は選ばなかった。</p>
+<h5 id="回避方法2-各ユニットピクチャのy座標から重なりを判定しピクチャ番号を切り替える">回避方法2: 各ユニットピクチャのY座標から重なりを判定し、ピクチャ番号を切り替える</h5>
+<p>今回選んだのはこっち。<br />
+描画前に、各ユニットの重なり順（レイヤー番号）をY座標を使って計算。<br />
+レイヤー番号に変更があれば、「ピクチャの表示」で各ユニットのピクチャ番号を変更する。<br />
+（変更管理が必要なため、<code>layers[]</code>と<code>oldLayers[]</code>の二つの配列で管理する）</p>
+<p>簡単そうに書いているが管理することは多く、面倒臭い。<br />
+ただでさえ面倒くさいのだが、実は、この描画方法では滑らかな描画が出来ない。<br />
+「ピクチャの表示」命令をすでに描画中のピクチャ番号に対して再度実行すると、ピクチャのちらつきが発生してしまう。</p>
+<p>じゃあどうするのか？</p>
+<p>ダブルバッファの自前実装である……。</p>
+<p>ダブルバッファというのは、ゲームエンジンでよく使われる描画方式。<br />
+今描画中の画面（キャンバス）とは別に、裏で「バッファ」と呼ばれるキャンバスを用意しておく。<br />
+画面の描画を一気に変更する場合、表側の画面を直接変更するのではなく、バッファ側で描画を行い、全ての描画が完了してから、バッファと表側のキャンバスを入れ替える、というもの。<br />
+この方式にすることで、中途半端な描画をプレイヤーに見せることなく、スムーズに描画を変更することができる。</p>
+<p>もちろんツクール2000にダブルバッファは無い。いや、内部的にはありそうなんだけど、作る側がダブルバッファを意識してなんやかんやすることは難しい。</p>
+<p>よって、完全なダブルバッファではなく、ダブルバッファ風の描画となる。</p>
+<p>今回は3ユニットなので、3つピクチャ番号が確保されている。<br />
+今確保済みの3ピクチャ番号を「表」とし、別でもう3つ「裏」のピクチャ番号を確保する。<br />
+表と裏、どちらのピクチャを描画に使っているかを表すフラグ<code>isSwapLayer</code>を用意。<code>true</code>なら裏を描画に使っていると判断する。<br />
+初期時点では、<code>isSwapLayer</code>は<code>false</code>で、描画も表のピクチャ番号で行われている状態。</p>
+<p>さて、ここでレイヤー番号に変更があり、各ユニットのピクチャ番号を変更する必要が出た。<br />
+現在<code>isSwapLayer</code>は<code>false</code>、表で描画している状態なので、変更後のレイヤー番号に基づくピクチャの表示は「裏」のピクチャ番号に行う。<br />
+この時点では非表示としたいので、ピクチャの表示位置は画面外の遠い場所に飛ばしておくこと。<br />
+裏のピクチャの読み込みが終わったら、<code>isSwapLayer</code>をトグル（今回だと<code>true</code>）し、裏のピクチャを正規の位置に表示し、表のピクチャは画面外に飛ばす。</p>
+<p>裏から表に描画を変えるときも同様に行う。</p>
+<p>これによって、滑らかにレイヤーを切り替えることが可能になる。</p>
+<p>もちろん、1ユニットに2枚のピクチャが必要になるというデメリットは大きい。<br />
+今回は3ユニットなので何の問題も無くできたが、ユニット数が増える場合は別の方法も考える必要がある。</p>
+<p><a href="../index.html">indexにもどる</a></p>
+</body>
+</html>

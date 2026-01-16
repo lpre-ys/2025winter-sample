@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>20251216_memo-1</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="" />
+  <!-- head.html -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+</head>
+<body>
+<h1 id="なんかhexマップでミニゲーム作りたいなの会">なんかHEXマップでミニゲーム作りたいなの会</h1>
+<p>ルール</p>
+<p>ランダム座標にゴール（ラブレター）が設置される<br />
+移動力は1ターンに2歩<br />
+先にゴールにたどり着いた方が勝ち<br />
+同着の場合、プレイヤーが勝ち</p>
+<p>ラウンドの最初に妨害植物を設置できる<br />
+キャラの居ないマスに設置可能（※）<br />
+妨害植物の上は移動できず<br />
+その周辺は1歩しか歩けない（ＺＯＣ）</p>
+<p>全5ラウンド（ラウンド数は後で変えるかも）<br />
+ポジションは継続</p>
+<p>全ラウンド勝利でクリア<br />
+1回でも負けたらおしまい</p>
+<p>隠しエンド条件:<br />
+バイソンの隣にラブレターが落ちてる、など<br />
+詰みの状態でラウンドが始まる場合<br />
+バイソンの上に妨害植物を設置可能<br />
+その場合、バイソンを殺して勝利となる</p>
+<h2 id="シナリオ">シナリオ</h2>
+<p>「あぁっ！<br />
+　深夜テンションで書き連ねた<br />
+　ラブレターが！！！」</p>
+<p>バイソンより先に<br />
+風に飛ばされたラブレターを全部集めよう！！</p>
+<ul>
+<li>ルール -</li>
+</ul>
+<p>1ターンに2歩歩けます<br />
+ラブレターの座標にたどり着いたら勝ちです<br />
+同着の場合、サイさんの勝ちです</p>
+<p>合計5枚(5ラウンド)あります<br />
+1枚でも取られたらおしまいです</p>
+<p>各ラウンドの最初に、妨害植物を1本設置できます<br />
+植物のマスは移動できません<br />
+植物の周囲1マスは1歩しか歩けません</p>
+<p>エンディングは全部で3種類あります</p>
+<h3 id="勝利">勝利</h3>
+<h3 id="負け">負け</h3>
+<h3 id="特殊エンド">特殊エンド</h3>
+<h2 id="スクリプトメモ">スクリプトメモ</h2>
+<pre><code>const tiles = [
+{ &quot;q&quot;: 0, &quot;r&quot;: 1 },
+{ &quot;q&quot;: 0, &quot;r&quot;: 2 },
+{ &quot;q&quot;: 0, &quot;r&quot;: 3 },
+{ &quot;q&quot;: 1, &quot;r&quot;: 0 },
+{ &quot;q&quot;: 1, &quot;r&quot;: 1 },
+{ &quot;q&quot;: 1, &quot;r&quot;: 2 },
+{ &quot;q&quot;: 1, &quot;r&quot;: 3 },
+{ &quot;q&quot;: 2, &quot;r&quot;: -1 },
+{ &quot;q&quot;: 2, &quot;r&quot;: 0 },
+{ &quot;q&quot;: 2, &quot;r&quot;: 1 },
+{ &quot;q&quot;: 2, &quot;r&quot;: 2 },
+{ &quot;q&quot;: 2, &quot;r&quot;: 3 },
+{ &quot;q&quot;: 3, &quot;r&quot;: -1 },
+{ &quot;q&quot;: 3, &quot;r&quot;: 0 },
+{ &quot;q&quot;: 3, &quot;r&quot;: 1 },
+{ &quot;q&quot;: 3, &quot;r&quot;: 2 },
+{ &quot;q&quot;: 4, &quot;r&quot;: -2 },
+{ &quot;q&quot;: 4, &quot;r&quot;: -1 },
+{ &quot;q&quot;: 4, &quot;r&quot;: 0 },
+{ &quot;q&quot;: 4, &quot;r&quot;: 1 },
+{ &quot;q&quot;: 4, &quot;r&quot;: 2 },
+{ &quot;q&quot;: 5, &quot;r&quot;: -2 },
+{ &quot;q&quot;: 5, &quot;r&quot;: -1 },
+{ &quot;q&quot;: 5, &quot;r&quot;: 0 },
+{ &quot;q&quot;: 5, &quot;r&quot;: 1 },
+{ &quot;q&quot;: 6, &quot;r&quot;: -3 },
+{ &quot;q&quot;: 6, &quot;r&quot;: -2 },
+{ &quot;q&quot;: 6, &quot;r&quot;: -1 },
+{ &quot;q&quot;: 6, &quot;r&quot;: 0 },
+{ &quot;q&quot;: 6, &quot;r&quot;: 1 },
+{ &quot;q&quot;: 7, &quot;r&quot;: -3 },
+{ &quot;q&quot;: 7, &quot;r&quot;: -2 },
+{ &quot;q&quot;: 7, &quot;r&quot;: -1 },
+{ &quot;q&quot;: 7, &quot;r&quot;: 0 },
+{ &quot;q&quot;: 8, &quot;r&quot;: -3 },
+{ &quot;q&quot;: 8, &quot;r&quot;: -2 },
+{ &quot;q&quot;: 8, &quot;r&quot;: -1 },
+];</code></pre>
+</body>
+</html>
